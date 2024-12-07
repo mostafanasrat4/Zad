@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "844549726999",
+    "project_id": "zad-app-2024",
+    "storage_bucket": "zad-app-2024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844549726999:android:23d5a176f04488b9210d52",
+        "android_client_info": {
+          "package_name": "com.example.zad"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADRdXiPayV-7I8a1adxjSFYBYrE59I-uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
