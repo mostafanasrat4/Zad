@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:zad/services/auth_wrapper.dart';
+import 'package:zad/controllers/auth_wrapper_controller.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
