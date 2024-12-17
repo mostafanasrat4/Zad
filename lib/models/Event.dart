@@ -14,6 +14,7 @@ class Event {
   DateTime date;
   List? SkillsNeeded;
 
+
   Event(this.name, this.description, this.date, this.id, this.location, this.userID, this.SkillsNeeded);
   factory Event.fromMap(Map<String, dynamic> map) {
     return Event(
