@@ -3,6 +3,8 @@
 //flutter pub add cloud_firestore
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Event {
   String id; // primary key
   String userID; // foreign key

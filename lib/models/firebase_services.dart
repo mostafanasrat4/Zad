@@ -126,7 +126,7 @@ class FirestoreService {
   // update single att
 Future<void> updateSingelAtt(String collection, String documentID, String att, String Value)async{
     try{
-      await _db.collection(collection).doc(documentID).update({att: /*user ID*/});
+      await _db.collection(collection).doc(documentID).update({att: Value});
     }catch(e){
       print(e.toString());
   }
