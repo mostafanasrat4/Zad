@@ -15,6 +15,17 @@ class Event {
   List? SkillsNeeded;
 
   Event(this.name, this.description, this.date, this.id, this.location, this.userID, this.SkillsNeeded);
+  factory Event.fromMap(Map<String, dynamic> map) {
+    return Event(
+      map['name'] ?? '',
+      map['description'] ?? '',
+      (map['date'] as Timestamp).toDate(),
+      map['id'] ?? '',
+      map['location'] ?? '',
+      map['userID'] ?? '',
+      List.from(map['SkillsNeeded']?.cast<String>() ?? []),
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,16 +39,5 @@ class Event {
     };
   }
 
-  Event.fromMap(Map<String, dynamic> map)
-      : id = map['id'] ?? '',
-        userID = map['userID'] ?? '',
-        name = map['name'] ?? '',
-        location = map['location'] ?? '',
-        description = map['description'] ?? '',
-        SkillsNeeded = map['SkillsNeeded'],
-        date = map['date'] is Timestamp
-            ? (map['date'] as Timestamp).toDate()  // Convert Timestamp to DateTime
-            : map['date'] is DateTime
-            ? map['date'] // If it's already DateTime, use it directly
-            : DateTime.now();// Default to current date if it's null or invalid
+
 }
