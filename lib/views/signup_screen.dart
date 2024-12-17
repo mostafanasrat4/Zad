@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zad/services/auth_service.dart';
 import 'package:zad/views/signin_screen.dart';
+import 'package:zad/controllers/sign_up_with_email.dart';
 
 class SignUpScreen extends StatelessWidget {
 
@@ -97,7 +97,7 @@ class SignUpScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async{
                     // ToDo: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                    AuthService().signUpWithEmailPassword(emailController.text, passwordController.text);
+                    signUP().signUpWithEmailPassword(emailController.text, passwordController.text);
 
                   },
                   style: ElevatedButton.styleFrom(
