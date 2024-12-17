@@ -6,8 +6,10 @@ class Donation {
   String userId;
   int amount;
   DateTime date;
+  String? status;
+  String Type;
 
-  Donation(this.id, this.beneficiaryID, this.userId, this.amount, this.date);
+  Donation(this.id, this.beneficiaryID, this.userId, this.amount, this.date, this.Type);
 
   factory Donation.fromMap(Map<String, dynamic> map) {
     return Donation(
@@ -16,6 +18,7 @@ class Donation {
       map['userId'] ?? '',
       map['amount'] ?? 0,
       (map['date'] as Timestamp).toDate(),
+      map['Type'] ?? '',
     );
   }
 
@@ -26,6 +29,7 @@ class Donation {
       'userId': userId,
       'amount': amount,
       'date': date,
+      'Type': Type
     };
   }
 }
