@@ -43,6 +43,7 @@ class beneficiary extends User {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       'DonationNeeded': DonationNeeded,

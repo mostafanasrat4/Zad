@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../models/firebase_auth_instance.dart';
+import '../models/services/firebase_auth_instance.dart';
 
 class signout{
   final FirebaseAuth authInstance = FirebaseAuthInstance().firebaseAuth;

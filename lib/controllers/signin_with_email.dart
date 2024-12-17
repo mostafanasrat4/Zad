@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:zad/models/IsignIN.dart';
-import 'package:zad/models/firebase_auth_instance.dart';
+import 'package:zad/models/services/IsignIN.dart';
+import 'package:zad/models/services/firebase_auth_instance.dart';
 
 class SignInWithEmail implements IsignIN {
   final FirebaseAuth authInstance = FirebaseAuthInstance().firebaseAuth;
@@ -18,7 +17,7 @@ class SignInWithEmail implements IsignIN {
       );
       return userCredential.user;
     } catch (e) {
-      print(e);
+      print(e.toString());
       return null;
     }
   }

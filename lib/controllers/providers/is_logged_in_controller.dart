@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zad/models/firebase_auth_instance.dart';
+import 'package:zad/models/services/firebase_auth_instance.dart';
 
 
 
