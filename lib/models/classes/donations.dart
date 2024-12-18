@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Donation {
   String id;
-  String beneficiaryID;
+  String beneficiaryID; //fk to owner of the event that got the donation
   String userId; // fk to user
   int amount;
   DateTime date;

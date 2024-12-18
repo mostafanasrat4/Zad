@@ -67,9 +67,20 @@ class EventManager implements IEventManager{
   }
 
   @override
-  Future<List<Event>> getBeneficaryEvents(String userID) {
-    // TODO: implement getBeneficaryEvents
-    throw UnimplementedError();
+  Future<List<Event>> getBeneficaryEvents(String userID) async {
+
+    try{
+      var rawEvents = await _firestoreService.getList(collections().events, 'userID', userID);
+      List<Event> events = [];
+      for(var event in rawEvents){
+        events.add(Event.fromMap(event));
+      }
+      return events;
+    }catch(e){
+      debugPrint(e.toString());
+    }
+    return [];
+
   }
 
   @override
