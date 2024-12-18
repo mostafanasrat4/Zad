@@ -10,7 +10,7 @@ abstract class IEventRegisteration{
   Future<void> attendEvent(EventRegisteration myEventRegisteration);
   Future<void> unattendEvent(EventRegisteration myEventRegisteration);
   Future<List<User>> getEventRegisterations(String eventID);
-  Future<List<User>> getUserRegisterations(String userID);
+  Future<List<Event>> getUserRegisterations(String userID);
   Future<List<User>> getEventAttendees(String eventID);
   Future<List<Event>> getUserAttendedEvents(String userID);
 

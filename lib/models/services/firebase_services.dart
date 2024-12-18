@@ -183,4 +183,36 @@ Future<void> updateSingelAtt(String collection, String documentID, String att, S
     }
   }
 
+  getListby2Attributes(String collection, String attribute1, String value1, String attribute2, String value2) async{
+    try{
+      QuerySnapshot snapshot = await _db
+          .collection(collection)
+          .where(attribute1, isEqualTo: value1)
+          .where(attribute2, isEqualTo: value2)
+          .get();
+      return snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+    }catch(e){
+      print(e.toString());
+    }
+
+  }
+
+  getDocumentIDby2Attributes(String collection, String attribute1, String value1, String attribute2, String value2) async{
+    try{
+      QuerySnapshot snapshot = await _db
+          .collection(collection)
+          .where(attribute1, isEqualTo: value1)
+          .where(attribute2, isEqualTo: value2)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        DocumentSnapshot documentSnapshot = snapshot.docs.first;
+        return documentSnapshot.id;
+      }
+      return null;
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
 }
