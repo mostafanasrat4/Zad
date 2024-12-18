@@ -7,6 +7,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:zad/models/classes/Event.dart';
 
 
 class FirestoreService {
@@ -167,4 +168,19 @@ Future<void> updateSingelAtt(String collection, String documentID, String att, S
       print("Error deleting document by 2 attributes: $e");
     }
   }
+
+  Future<List<Map<String, dynamic>>> getCollection(String collection) async {
+    List<Map<String, dynamic>> documents = [];
+    try {
+      QuerySnapshot querySnapshot = await _db.collection(collection).get();
+      for (var doc in querySnapshot.docs) {
+        documents.add(doc.data() as Map<String, dynamic>);
+      }
+      return documents;
+    } catch (e) {
+      print(e.toString());
+      return documents;
+    }
+  }
+
 }

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Donation {
   String id;
   String beneficiaryID;
-  String userId;
+  String userId; // fk to user
   int amount;
   DateTime date;
   String? status;

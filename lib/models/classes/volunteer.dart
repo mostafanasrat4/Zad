@@ -1,8 +1,10 @@
 import 'users.dart';
+// use selectors for skills and availability to control values
 
 class Volunter extends User {
   List<String> skills;
   List<DateTime> availability;
+  List<String> preferrences = [];
 
 
   Volunter({
@@ -14,6 +16,7 @@ class Volunter extends User {
     String? type,
     required this.skills,
     required this.availability,
+    required this.preferrences,
   }) : super(id, name, email, number, imageURL, type);
 
 
@@ -29,6 +32,7 @@ class Volunter extends User {
       availability: List<DateTime>.from(
         (map['availability'] ?? []).map((e) => DateTime.parse(e)),
       ),
+      preferrences: List<String>.from(map['preferrences'] ?? []),
     );
   }
 
@@ -44,11 +48,8 @@ class Volunter extends User {
       'type': type,
       'skills': skills,
       'availability': availability.map((e) => e.toIso8601String()).toList(),
+      'preferrences': preferrences
     };
   }
 
-  @override
-  String toString() {
-    return 'Volunter(id: $id, name: $name, email: $email, skills: $skills, availability: $availability)';
-  }
 }
