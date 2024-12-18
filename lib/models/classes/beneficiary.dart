@@ -3,7 +3,7 @@ import 'users.dart';
 class beneficiary extends User {
   double DonationNeeded;
   double DonationGiven;
-  String? status;
+  String? status = 'pending';
   String? reason;
   String? date;
   String? location;

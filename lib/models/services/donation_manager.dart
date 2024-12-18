@@ -1,3 +1,5 @@
+//toDo: remove debug prints
+
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/donations.dart';
@@ -15,7 +17,7 @@ class DonationManager  implements IDonationManager{
      debugPrint(e.toString());
    }
   }
-
+// don't use, donations can't be reversed, was added just incase
   @override
   Future<void> deleteDonation(Donation myDonation)async {
   try{
