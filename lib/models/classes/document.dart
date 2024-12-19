@@ -3,12 +3,14 @@ class Document{
   String url;
   String? title;
   String? description;
+  String? userID;
 
   Document({
     required this.id,
     required this.url,
     this.title,
-    this.description
+    this.description,
+    required this.userID
   });
 
   factory Document.fromMap(Map<String, dynamic> map){
@@ -16,7 +18,8 @@ class Document{
       id: map['id'] ?? '',
       url: map['url'] ?? '',
       title: map['title'] ?? '',
-      description: map['description'] ?? ''
+      description: map['description'] ?? '',
+      userID: map['userID']
     );
   }
 
@@ -25,7 +28,8 @@ class Document{
       'id' : id,
       'url': url,
       'title': title,
-      'description' : description
+      'description' : description,
+      'userID' : userID
     };
   }
 

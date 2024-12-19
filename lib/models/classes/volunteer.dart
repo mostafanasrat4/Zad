@@ -14,7 +14,7 @@ class Volunteer extends User {
     String? type='volunteer',
     required this.skills,
     required this.availability,
-    required this.preferrences, required String preferences,
+    required this.preferrences,
   }) : super(id, fullName, email, phoneNo, imageURL, type);
 
 
@@ -27,7 +27,6 @@ class Volunteer extends User {
       imageURL: map['imageURL'],
       type: map['type'],
       skills: List<String>.from(map['skills'] ?? []),
-      preferences: map['preferrences'],
       availability: List<DateTime>.from(
         (map['availability'] ?? []).map((e) => DateTime.parse(e)),
       ),
