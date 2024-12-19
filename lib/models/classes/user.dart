@@ -1,12 +1,12 @@
 class User {
   String id; // pk
-  String? fullName;
+  String? name;
   String? email;
-  String? phoneNo;
+  String? number;
   String? imageURL;
   String? type;
 
-  User(this.id, this.fullName, this.email, this.phoneNo, this.imageURL, this.type);
+  User(this.id, this.name, this.email, this.number, this.imageURL, this.type);
   factory User.fromMap(Map<String, dynamic> map) => User(
         map['id'] ?? '',
         map['name'] ?? '',
@@ -18,9 +18,9 @@ class User {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'name': fullName,
+        'name': name,
         'email': email,
-        'number': phoneNo,
+        'number': number,
         'imageURL': imageURL,
         'type': type,
       };

@@ -21,7 +21,7 @@ class Beneficiary extends User {
     String? email,
     String? number,
     String? imageURL,
-    String? type,
+    String? type='beneficiary',
     required String id,
   }) : super(id, name, email, number, imageURL, type);
 
@@ -53,9 +53,9 @@ class Beneficiary extends User {
       'date': date,
       'location': location,
       'requiredDocuments': requiredDocuments,
-      'name': fullName,
+      'name': name,
       'email': email,
-      'number': phoneNo,
+      'number': number,
       'imageURL': imageURL,
       'type': type,
       'id': id,

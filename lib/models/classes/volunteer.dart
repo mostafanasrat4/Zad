@@ -11,7 +11,7 @@ class Volunteer extends User {
     String? email,
     String? number,
     String? imageURL,
-    String? type,
+    String? type='volunteer',
     required this.skills,
     required this.availability,
     required this.preferrences,
@@ -39,9 +39,9 @@ class Volunteer extends User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': fullName,
+      'name': name,
       'email': email,
-      'number': phoneNo,
+      'number': number,
       'imageURL': imageURL,
       'type': type,
       'skills': skills,

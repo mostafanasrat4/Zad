@@ -6,6 +6,7 @@ class collections{
   String volunteers="volunteers";
   String beneficiary="beneficiaries";
   String donationDetails='donationsDetails';
+  String donors = "donors";
 
 
 }
