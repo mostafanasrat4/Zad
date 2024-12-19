@@ -5,6 +5,7 @@ class collections{
   String eventRegisterations = "eventRegisterations";
   String volunteers="volunteers";
   String beneficiary="beneficiaries";
+  String donationDetails='donationsDetails';
 
 
 }

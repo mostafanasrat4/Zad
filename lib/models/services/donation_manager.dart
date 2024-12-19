@@ -40,7 +40,7 @@ class DonationManager  implements IDonationManager{
   @override
   Future<List<Donation>> getDonationsByProjectID(String projectID) async{
     try{
-      var donations = await _firestoreService.getList(collections().donations, 'projectId', projectID);
+      var donations = await _firestoreService.getList(collections().donations, 'beneficiaryId', projectID);
       List<Donation> donationsOBJ = [];
       for(var donation in donations){
         donationsOBJ.add(Donation.fromMap(donation));
