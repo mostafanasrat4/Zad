@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/collections.dart';
-import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/interfaces/IBeneficiaryManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 

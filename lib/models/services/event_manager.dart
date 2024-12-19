@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/collections.dart';
@@ -68,7 +67,6 @@ class EventManager implements IEventManager{
 
   @override
   Future<List<Event>> getBeneficaryEvents(String userID) async {
-
     try{
       var rawEvents = await _firestoreService.getList(collections().events, 'userID', userID);
       List<Event> events = [];

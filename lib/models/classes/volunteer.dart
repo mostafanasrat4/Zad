@@ -1,13 +1,11 @@
 import 'user.dart';
 // use selectors for skills and availability to control values
 
-class Volunter extends User {
+class Volunteer extends User {
   List<String> skills;
   List<DateTime> availability;
   List<String> preferrences = [];
-
-
-  Volunter({
+  Volunteer({
     required String id,
     String? name,
     String? email,
@@ -20,8 +18,8 @@ class Volunter extends User {
   }) : super(id, name, email, number, imageURL, type);
 
 
-  factory Volunter.fromMap(Map<String, dynamic> map) {
-    return Volunter(
+  factory Volunteer.fromMap(Map<String, dynamic> map) {
+    return Volunteer(
       id: map['id'] ?? '',
       name: map['name'],
       email: map['email'],

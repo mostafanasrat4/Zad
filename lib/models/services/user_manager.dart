@@ -47,6 +47,7 @@ class UserManager implements IUserManager {
       print(e.toString());
       print('error getting the user');
     }
+    return null;
   }
 
 
@@ -64,5 +65,6 @@ class UserManager implements IUserManager {
       print(e.toString());
       return null;
     }
-  } //Future<List<Map<String, dynamic>>>
+    return null;
+  }
 }

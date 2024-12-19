@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {
   String id; // primary key
-  String userID; // foreign key of the owner
+  String userID; // foreign key of the owner beneficiary
   String name;
   String location;
   String description;

@@ -5,11 +5,9 @@ class Donation {
   String beneficiaryID; //fk to owner of the event that got the donation
   String userId; // fk to user
   int amount;
-  DateTime date;
-  String? status;
-  String Type;
 
-  Donation(this.id, this.beneficiaryID, this.userId, this.amount, this.date, this.Type);
+
+  Donation(this.id, this.beneficiaryID, this.userId, this.amount);
 
   factory Donation.fromMap(Map<String, dynamic> map) {
     return Donation(
@@ -17,8 +15,6 @@ class Donation {
       map['projectId'] ?? '',
       map['userId'] ?? '',
       map['amount'] ?? 0,
-      (map['date'] as Timestamp).toDate(),
-      map['Type'] ?? '',
     );
   }
 
@@ -28,8 +24,6 @@ class Donation {
       'projectId': beneficiaryID,
       'userId': userId,
       'amount': amount,
-      'date': date,
-      'Type': Type
     };
   }
 }

@@ -4,7 +4,6 @@ class collections{
   String donations = "donations";
   String eventRegisterations = "eventRegisterations";
   String volunteers="volunteers";
-
   String beneficiary="beneficiaries";
 
 
