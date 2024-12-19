@@ -7,8 +7,8 @@ class collections{
   String beneficiary="beneficiaries";
   String donationDetails='donationsDetails';
   String donors = "donors";
-
   String admins="admins";
+  String documents="documents";
 
 
 }

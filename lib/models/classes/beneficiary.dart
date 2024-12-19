@@ -1,3 +1,5 @@
+import 'package:zad/models/classes/document.dart';
+
 import 'user.dart';
 
 class Beneficiary extends User {
@@ -7,7 +9,7 @@ class Beneficiary extends User {
   String? reason;
   String? date;
   String? location;
-  String? requiredDocuments;
+  String? requiredDocumentsID;
 
   Beneficiary({
     required this.donationNeeded,
@@ -16,7 +18,7 @@ class Beneficiary extends User {
     this.reason,
     this.date,
     this.location,
-    this.requiredDocuments,
+    this.requiredDocumentsID,
     String? fullName,
     String? email,
     String? phoneNo,
@@ -33,7 +35,7 @@ class Beneficiary extends User {
       reason: map['reason'],
       date: map['date'],
       location: map['location'],
-      requiredDocuments: map['requiredDocuments'],
+      requiredDocumentsID: map['requiredDocumentsID'],
       fullName: map['fullName'],
       email: map['email'],
       phoneNo: map['phoneNo'],
@@ -52,7 +54,7 @@ class Beneficiary extends User {
       'reason': reason,
       'date': date,
       'location': location,
-      'requiredDocuments': requiredDocuments,
+      'requiredDocumentsID': requiredDocumentsID,
       'fullName': fullName,
       'email': email,
       'phoneNo': phoneNo,
