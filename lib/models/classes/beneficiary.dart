@@ -1,17 +1,17 @@
-import 'users.dart';
+import 'user.dart';
 
-class beneficiary extends User {
-  double DonationNeeded;
-  double DonationGiven;
+class Beneficiary extends User {
+  double donationNeeded;
+  double donationReceived;
   String? status = 'pending';
   String? reason;
   String? date;
   String? location;
   String? requiredDocuments;
 
-  beneficiary({
-    required this.DonationNeeded,
-    required this.DonationGiven,
+  Beneficiary({
+    required this.donationNeeded,
+    required this.donationReceived,
     this.status,
     this.reason,
     this.date,
@@ -25,10 +25,10 @@ class beneficiary extends User {
     required String id,
   }) : super(id, name, email, number, imageURL, type);
 
-  factory beneficiary.fromMap(Map<String, dynamic> map) {
-    return beneficiary(
-      DonationNeeded: map['DonationNeeded'] ?? 0.0,
-      DonationGiven: map['DonationGiven'] ?? 0.0,
+  factory Beneficiary.fromMap(Map<String, dynamic> map) {
+    return Beneficiary(
+      donationNeeded: map['DonationNeeded'] ?? 0.0,
+      donationReceived: map['DonationGiven'] ?? 0.0,
       status: map['status'],
       reason: map['reason'],
       date: map['date'],
@@ -46,16 +46,16 @@ class beneficiary extends User {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'DonationNeeded': DonationNeeded,
-      'DonationGiven': DonationGiven,
+      'DonationNeeded': donationNeeded,
+      'DonationGiven': donationReceived,
       'status': status,
       'reason': reason,
       'date': date,
       'location': location,
       'requiredDocuments': requiredDocuments,
-      'name': name,
+      'name': fullName,
       'email': email,
-      'number': number,
+      'number': phoneNo,
       'imageURL': imageURL,
       'type': type,
       'id': id,

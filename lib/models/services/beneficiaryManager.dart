@@ -22,7 +22,7 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<void> createBeneficiary(beneficiary myBeneficiary) async{
+  Future<void> createBeneficiary(Beneficiary myBeneficiary) async{
     try{
       await _firestoreService.addData(collections().beneficiary, myBeneficiary.toMap());
     }catch(e){
@@ -42,7 +42,7 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<void> editBeneficiary(beneficiary myBeneficiary) async{
+  Future<void> editBeneficiary(Beneficiary myBeneficiary) async{
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', myBeneficiary.id);
       await _firestoreService.updateData(collections().beneficiary, docID!, myBeneficiary.toMap());
@@ -53,12 +53,12 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<List<beneficiary>> getApprovedBeneficiaries(String status) async {
+  Future<List<Beneficiary>> getApprovedBeneficiaries(String status) async {
     try{
       var result = await _firestoreService.getList(collections().beneficiary, status, 'approved');
-      List<beneficiary> beneficiaries = [];
+      List<Beneficiary> beneficiaries = [];
       for(var item in result){
-        beneficiaries.add(beneficiary.fromMap(item));
+        beneficiaries.add(Beneficiary.fromMap(item));
       }
       return beneficiaries;
     }
@@ -69,13 +69,13 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<List<beneficiary>> getBeneficiaries()async {
+  Future<List<Beneficiary>> getBeneficiaries()async {
     try {
       var result = await _firestoreService.getCollection(
           collections().beneficiary);
-      List<beneficiary> beneficiaries = [];
+      List<Beneficiary> beneficiaries = [];
       for (var item in result) {
-        beneficiaries.add(beneficiary.fromMap(item));
+        beneficiaries.add(Beneficiary.fromMap(item));
       }
       return beneficiaries;
     }catch(e){
@@ -87,10 +87,10 @@ class BenficiaryManager implements IBeneficiaryManager{
 
 
   @override
-  Future<beneficiary?> getBeneficiary(String id) async{
+  Future<Beneficiary?> getBeneficiary(String id) async{
     try{
       var result = await _firestoreService.getDocumentByAttribute(collections().beneficiary,'id' ,id);
-      return beneficiary.fromMap(result!);
+      return Beneficiary.fromMap(result!);
     }
     catch(e){
       debugPrint(e.toString());
@@ -99,12 +99,12 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<List<beneficiary>> getDisapprovedBeneficiaries(String status) async{
+  Future<List<Beneficiary>> getDisapprovedBeneficiaries(String status) async{
     try{
       var result = await _firestoreService.getList(collections().beneficiary, status, 'disapproved');
-      List<beneficiary> beneficiaries = [];
+      List<Beneficiary> beneficiaries = [];
       for(var item in result){
-        beneficiaries.add(beneficiary.fromMap(item));
+        beneficiaries.add(Beneficiary.fromMap(item));
       }
       return beneficiaries;
     }
@@ -115,12 +115,12 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<List<beneficiary>> getPendingBeneficiaries(String status) async {
+  Future<List<Beneficiary>> getPendingBeneficiaries(String status) async {
     try{
       var result = await _firestoreService.getList(collections().beneficiary, status, 'pending');
-      List<beneficiary> beneficiaries = [];
+      List<Beneficiary> beneficiaries = [];
       for(var item in result){
-        beneficiaries.add(beneficiary.fromMap(item));
+        beneficiaries.add(Beneficiary.fromMap(item));
       }
       return beneficiaries;
     }

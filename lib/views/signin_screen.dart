@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/views/signup_screen.dart';
-// toDo based on user type navigate replacement to a different screen, save user id in shared preferences and use it across the app
+// TODO: based on user type navigate replacement to a different screen, save user id in shared preferences and use it across the app
 class SignInScreen extends StatelessWidget {
 
   SignInScreen({super.key});
@@ -69,7 +69,7 @@ class SignInScreen extends StatelessWidget {
                 height: 40.0,
                 child: ElevatedButton(
                   onPressed: () async{
-                    // ToDo: Replace this line with a call to a method from the controller (Don't call AuthService directly)
+                    // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
                     SignInWithEmail().signIN(emailController.text, passwordController.text);
 
                   },

@@ -1,6 +1,6 @@
-import 'package:zad/models/classes/Event.dart';
+import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/event_registeration.dart';
-import 'package:zad/models/classes/users.dart';
+import 'package:zad/models/classes/user.dart';
 
 abstract class IEventRegisteration{
 

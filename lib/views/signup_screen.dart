@@ -96,7 +96,7 @@ class SignUpScreen extends StatelessWidget {
                 height: 40.0,
                 child: ElevatedButton(
                   onPressed: () async{
-                    // ToDo: Replace this line with a call to a method from the controller (Don't call AuthService directly)
+                    // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
                     signUP().signUpWithEmailPassword(emailController.text, passwordController.text);
 
                   },

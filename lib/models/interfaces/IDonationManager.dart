@@ -1,4 +1,4 @@
-import 'package:zad/models/classes/donations.dart';
+import 'package:zad/models/classes/donation.dart';
 
 abstract class IDonationManager{
   Future<void> createDonation(Donation myDonation);

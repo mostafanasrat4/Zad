@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/collections.dart';
-import 'package:zad/models/classes/donations.dart';
+import 'package:zad/models/classes/donation.dart';
 import 'package:zad/models/interfaces/IDonationManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 

@@ -1,4 +1,4 @@
-import 'package:zad/models/classes/users.dart';
+import 'package:zad/models/classes/user.dart';
 abstract class IUserManager {
   Future<void> createUser(User myUser);
   Future<void> deleteUser(User myUser);

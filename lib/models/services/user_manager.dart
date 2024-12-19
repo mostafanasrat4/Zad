@@ -1,5 +1,5 @@
 import 'package:zad/models/classes/collections.dart';
-import 'package:zad/models/classes/users.dart';
+import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 

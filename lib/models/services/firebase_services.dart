@@ -7,7 +7,7 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:zad/models/classes/Event.dart';
+import 'package:zad/models/classes/event.dart';
 
 
 class FirestoreService {

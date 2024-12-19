@@ -1,4 +1,4 @@
-import 'package:zad/models/classes/Event.dart';
+import 'package:zad/models/classes/event.dart';
 
 abstract class IEventManager {
   Future <void> AddEvent(Event myEvent);

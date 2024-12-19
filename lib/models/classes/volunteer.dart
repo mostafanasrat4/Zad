@@ -1,4 +1,4 @@
-import 'users.dart';
+import 'user.dart';
 // use selectors for skills and availability to control values
 
 class Volunter extends User {
@@ -41,9 +41,9 @@ class Volunter extends User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'name': fullName,
       'email': email,
-      'number': number,
+      'number': phoneNo,
       'imageURL': imageURL,
       'type': type,
       'skills': skills,
