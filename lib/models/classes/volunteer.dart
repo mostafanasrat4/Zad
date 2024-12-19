@@ -7,23 +7,23 @@ class Volunteer extends User {
   List<String> preferrences = [];
   Volunteer({
     required String id,
-    String? name,
+    String? fullName,
     String? email,
-    String? number,
+    String? phoneNo,
     String? imageURL,
     String? type='volunteer',
     required this.skills,
     required this.availability,
     required this.preferrences,
-  }) : super(id, name, email, number, imageURL, type);
+  }) : super(id, fullName, email, phoneNo, imageURL, type);
 
 
   factory Volunteer.fromMap(Map<String, dynamic> map) {
     return Volunteer(
       id: map['id'] ?? '',
-      name: map['name'],
+      fullName: map['fullName'],
       email: map['email'],
-      number: map['number'],
+      phoneNo: map['phoneNo'],
       imageURL: map['imageURL'],
       type: map['type'],
       skills: List<String>.from(map['skills'] ?? []),
@@ -39,9 +39,9 @@ class Volunteer extends User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'fullName': fullName,
       'email': email,
-      'number': number,
+      'phoneNo': phoneNo,
       'imageURL': imageURL,
       'type': type,
       'skills': skills,

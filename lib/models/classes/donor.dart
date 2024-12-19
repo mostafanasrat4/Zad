@@ -1,23 +1,23 @@
 import 'package:zad/models/classes/user.dart';
 
-class donor extends User {
-  donor({
+class Donor extends User {
+  Donor({
     required String id,
-    String? name,
+    String? fullName,
     String? email,
-    String? number,
+    String? phoneNo,
     String? imageURL,
     String? type= "donor",
-  }) : super(id, name, email, number, imageURL, type);
+  }) : super(id, fullName, email, phoneNo, imageURL, type);
 
 
 
-  factory donor.fromMap(Map<String, dynamic> map) {
-    return donor(
+  factory Donor.fromMap(Map<String, dynamic> map) {
+    return Donor(
       id: map['id'] ?? '',
-      name: map['name'],
+      fullName: map['name'],
       email: map['email'],
-      number: map['number'],
+      phoneNo: map['phoneNo'],
       imageURL: map['imageURL'],
       type: map['type'],
     );
@@ -26,9 +26,9 @@ class donor extends User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'fullName': fullName,
       'email': email,
-      'number': number,
+      'phoneNo': phoneNo,
       'imageURL': imageURL,
       'type': type
     };

@@ -7,12 +7,12 @@ import 'package:zad/models/classes/collections.dart';
 class AdminManager implements IAdmin {
   final FirestoreService _firestoreService = FirestoreService();
   @override
-  Future<admin?> FindAdminByNumber(String number)async {
+  Future<Admin?> FindAdminByNumber(String number)async {
     try {
       var document = await _firestoreService.getDocumentByAttribute(
           collections().admins, 'number', number);
       if(document != null) {
-        admin myAdmin = admin.fromMap(document);
+        Admin myAdmin = Admin.fromMap(document);
         return myAdmin;
       }
 
@@ -25,7 +25,7 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<void> createAdmin(admin myUser) async{
+  Future<void> createAdmin(Admin myUser) async{
     try {
       _firestoreService.addData(collections().admins, myUser.toMap());
       print('user created successfully');
@@ -35,14 +35,14 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<void> deleteAdminr(admin myUser) async{
+  Future<void> deleteAdminr(Admin myUser) async{
     String? docID =
         await _firestoreService.getDocID(collections().admins, 'id', myUser.id);
     await _firestoreService.deleteData(collections().admins, docID!);
   }
 
   @override
-  Future<void> editAdmin(admin myAdmin) async{
+  Future<void> editAdmin(Admin myAdmin) async{
     String? docID =
         await _firestoreService.getDocID(collections().admins, 'id', myAdmin.id);
     await _firestoreService.updateData(
@@ -50,10 +50,10 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<admin?> getAdminByUserID(String userID)async {
+  Future<Admin?> getAdminByUserID(String userID)async {
     try {
       var user = await _firestoreService.getDocumentByAttribute(collections().admins, 'id', userID);
-      admin myAdmin = admin.fromMap(user!);
+      Admin myAdmin = Admin.fromMap(user!);
       return myAdmin;
 
     } catch (e) {

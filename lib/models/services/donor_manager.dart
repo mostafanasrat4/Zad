@@ -7,10 +7,10 @@ import '../interfaces/IDonor_manager.dart';
 class DonorManager implements IDonorManager{
   final FirestoreService _firestoreService = FirestoreService();
   @override
-  Future<donor?> FindDonorByNumber(String number)async {
+  Future<Donor?> FindDonorByNumber(String number)async {
     try{
       var don = await _firestoreService.getDocumentByAttribute(collections().donors, 'number', number);
-      donor myDonor = donor.fromMap(don!);
+      Donor myDonor = Donor.fromMap(don!);
       return  myDonor;
     }catch(e){
       debugPrint(e.toString());
@@ -19,7 +19,7 @@ class DonorManager implements IDonorManager{
   }
 
   @override
-  Future<void> createDonor(donor myUser) async{
+  Future<void> createDonor(Donor myUser) async{
     try {
       _firestoreService.addData(collections().donors, myUser.toMap());
       print('donor created successfully');
@@ -29,13 +29,13 @@ class DonorManager implements IDonorManager{
   }
 
   @override
-  Future<void> deleteDonor(donor myUser)async {
+  Future<void> deleteDonor(Donor myUser)async {
     String? docID = await _firestoreService.getDocID(collections().user, 'id', myUser.id);
     await _firestoreService.deleteData(collections().user, docID!);
   }
 
   @override
-  Future<void> editDonor(donor myUser)async {
+  Future<void> editDonor(Donor myUser)async {
     String? docID =
         await _firestoreService.getDocID(collections().user, 'id', myUser.id);
     await _firestoreService.updateData(
@@ -43,10 +43,10 @@ class DonorManager implements IDonorManager{
   }
 
   @override
-  Future<donor?> getDonorByUserID(String userID) async{
+  Future<Donor?> getDonorByUserID(String userID) async{
     try {
       var user = await _firestoreService.getDocumentByAttribute(collections().user, 'id', userID);
-      donor myUser = donor.fromMap(user!);
+      Donor myUser = Donor.fromMap(user!);
       return myUser;
 
     } catch (e) {

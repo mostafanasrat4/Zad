@@ -17,13 +17,13 @@ class Beneficiary extends User {
     this.date,
     this.location,
     this.requiredDocuments,
-    String? name,
+    String? fullName,
     String? email,
-    String? number,
+    String? phoneNo,
     String? imageURL,
     String? type='beneficiary',
     required String id,
-  }) : super(id, name, email, number, imageURL, type);
+  }) : super(id, fullName, email, phoneNo, imageURL, type);
 
   factory Beneficiary.fromMap(Map<String, dynamic> map) {
     return Beneficiary(
@@ -34,9 +34,9 @@ class Beneficiary extends User {
       date: map['date'],
       location: map['location'],
       requiredDocuments: map['requiredDocuments'],
-      name: map['name'],
+      fullName: map['fullName'],
       email: map['email'],
-      number: map['number'],
+      phoneNo: map['phoneNo'],
       imageURL: map['imageURL'],
       type: map['type'],
       id: map['id'] ?? '',
@@ -53,9 +53,9 @@ class Beneficiary extends User {
       'date': date,
       'location': location,
       'requiredDocuments': requiredDocuments,
-      'name': name,
+      'fullName': fullName,
       'email': email,
-      'number': number,
+      'phoneNo': phoneNo,
       'imageURL': imageURL,
       'type': type,
       'id': id,

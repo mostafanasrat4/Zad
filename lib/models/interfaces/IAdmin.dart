@@ -1,8 +1,8 @@
 import '../classes/admin.dart';
 abstract class IAdmin {
-  Future<void> createAdmin(admin myUser);
-  Future<void> deleteAdminr(admin myUser);
-  Future<void> editAdmin(admin myAdmin);
-  Future<admin?> getAdminByUserID(String userID);
-  Future<admin?> FindAdminByNumber(String number);
+  Future<void> createAdmin(Admin myUser);
+  Future<void> deleteAdminr(Admin myUser);
+  Future<void> editAdmin(Admin myAdmin);
+  Future<Admin?> getAdminByUserID(String userID);
+  Future<Admin?> FindAdminByNumber(String number);
 }

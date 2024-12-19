@@ -12,7 +12,7 @@ class Donation {
   factory Donation.fromMap(Map<String, dynamic> map) {
     return Donation(
       map['id'] ?? '',
-      map['projectId'] ?? '',
+      map['beneficiaryID'] ?? '',
       map['userId'] ?? '',
       map['amount'] ?? 0,
     );
@@ -21,7 +21,7 @@ class Donation {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'projectId': beneficiaryID,
+      'beneficiaryID': beneficiaryID,
       'userId': userId,
       'amount': amount,
     };

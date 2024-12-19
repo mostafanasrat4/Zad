@@ -1,7 +1,7 @@
 import 'package:zad/models/classes/user.dart';
 
-class admin extends User {
-  admin({
+class Admin extends User {
+  Admin({
     required String id,
     String? name,
     String? email,
@@ -12,8 +12,8 @@ class admin extends User {
 
 
 
-  factory admin.fromMap(Map<String, dynamic> map) {
-    return admin(
+  factory Admin.fromMap(Map<String, dynamic> map) {
+    return Admin(
       id: map['id'] ?? '',
       name: map['name'],
       email: map['email'],
@@ -26,9 +26,9 @@ class admin extends User {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
+      'name': fullName,
       'email': email,
-      'number': number,
+      'number': phoneNo,
       'imageURL': imageURL,
       'type': type
     };
