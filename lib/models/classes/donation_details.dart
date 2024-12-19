@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DonationDetails {
-  String id;
+  String id; //fk to the donation
   DateTime date;
   String? status;
   String paymentMethod;
