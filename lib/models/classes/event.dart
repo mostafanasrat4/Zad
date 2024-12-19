@@ -2,7 +2,6 @@
 //errors because no firestore package, cant add it because no wifi rn
 //flutter pub add cloud_firestore
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Event {

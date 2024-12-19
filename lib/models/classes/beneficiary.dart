@@ -27,8 +27,8 @@ class Beneficiary extends User {
 
   factory Beneficiary.fromMap(Map<String, dynamic> map) {
     return Beneficiary(
-      donationNeeded: map['DonationNeeded'] ?? 0.0,
-      donationReceived: map['DonationGiven'] ?? 0.0,
+      donationNeeded: map['donationNeeded'] ?? 0.0,
+      donationReceived: map['donationReceived'] ?? 0.0,
       status: map['status'],
       reason: map['reason'],
       date: map['date'],
@@ -46,8 +46,8 @@ class Beneficiary extends User {
   @override
   Map<String, dynamic> toMap() {
     return {
-      'DonationNeeded': donationNeeded,
-      'DonationGiven': donationReceived,
+      'donationNeeded': donationNeeded,
+      'donationReceived': donationReceived,
       'status': status,
       'reason': reason,
       'date': date,
