@@ -1,13 +1,14 @@
 import 'package:zad/models/classes/admin.dart';
-import 'package:zad/models/interfaces/IAdmin.dart';
+import 'package:zad/models/interfaces/IUserManager.dart';
+
 import 'package:zad/models/services/firebase_services.dart';
 import 'package:zad/models/classes/collections.dart';
 
 
-class AdminManager implements IAdmin {
+class AdminManager implements IUserManager {
   final FirestoreService _firestoreService = FirestoreService();
   @override
-  Future<Admin?> FindAdminByNumber(String number)async {
+  Future<Admin?> FindUserByNumber(String number)async {
     try {
       var document = await _firestoreService.getDocumentByAttribute(
           collections().admins, 'number', number);
@@ -25,7 +26,11 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<void> createAdmin(Admin myUser) async{
+  Future<void> createUser(myUser) async{
+    if(myUser is Admin) {
+      throw ArgumentError('User must be of type Admin');
+      return;
+    }
     try {
       _firestoreService.addData(collections().admins, myUser.toMap());
       print('user created successfully');
@@ -35,14 +40,26 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<void> deleteAdminr(Admin myUser) async{
-    String? docID =
-        await _firestoreService.getDocID(collections().admins, 'id', myUser.id);
-    await _firestoreService.deleteData(collections().admins, docID!);
+  Future<void> deleteUser(myUser) async{
+    if(myUser is Admin) {
+      throw ArgumentError('User must be of type Admin');
+      return;
+    }
+    try {
+      String? docID =
+      await _firestoreService.getDocID(collections().admins, 'id', myUser.id);
+      await _firestoreService.deleteData(collections().admins, docID!);
+    }catch(e) {
+      print(e.toString());
+    }
   }
 
   @override
-  Future<void> editAdmin(Admin myAdmin) async{
+  Future<void> editUser(myAdmin) async{
+    if(myAdmin is Admin) {
+      throw ArgumentError('User must be of type Admin');
+      return;
+    }
     String? docID =
         await _firestoreService.getDocID(collections().admins, 'id', myAdmin.id);
     await _firestoreService.updateData(
@@ -50,7 +67,7 @@ class AdminManager implements IAdmin {
   }
 
   @override
-  Future<Admin?> getAdminByUserID(String userID)async {
+  Future<Admin?> getUserByUserID(String userID)async {
     try {
       var user = await _firestoreService.getDocumentByAttribute(collections().admins, 'id', userID);
       Admin myAdmin = Admin.fromMap(user!);

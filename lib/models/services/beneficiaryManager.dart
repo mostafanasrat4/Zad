@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/collections.dart';
-import 'package:zad/models/interfaces/IBeneficiaryManager.dart';
+import 'package:zad/models/classes/user.dart';
+
+import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 
-class BenficiaryManager implements IBeneficiaryManager{
+class BenficiaryManager implements IUserManager{
   final FirestoreService _firestoreService = FirestoreService();
 
   @override
@@ -21,7 +23,11 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<void> createBeneficiary(Beneficiary myBeneficiary) async{
+  Future<void> createUser( myBeneficiary) async{
+    if(myBeneficiary is Beneficiary) {
+      throw ArgumentError('User must be of type Beneficiary');
+      return;
+    }
     try{
       await _firestoreService.addData(collections().beneficiary, myBeneficiary.toMap());
     }catch(e){
@@ -41,7 +47,11 @@ class BenficiaryManager implements IBeneficiaryManager{
   }
 
   @override
-  Future<void> editBeneficiary(Beneficiary myBeneficiary) async{
+  Future<void> editUser(myBeneficiary) async{
+    if(myBeneficiary is Beneficiary) {
+      throw ArgumentError('User must be of type Beneficiary');
+      return;
+    }
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', myBeneficiary.id);
       await _firestoreService.updateData(collections().beneficiary, docID!, myBeneficiary.toMap());
@@ -138,5 +148,23 @@ class BenficiaryManager implements IBeneficiaryManager{
     catch(e){
       debugPrint(e.toString());
     }
+  }
+
+  @override
+  Future<User?> FindUserByNumber(String number) {
+    // TODO: implement FindUserByNumber
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> deleteUser(myUser) {
+    // TODO: implement deleteUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User?> getUserByUserID(String userID) {
+    // TODO: implement getUserByUserID
+    throw UnimplementedError();
   }
 }

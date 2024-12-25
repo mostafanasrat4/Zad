@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:zad/models/classes/collections.dart';
+import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/classes/volunteer.dart';
-import 'package:zad/models/interfaces/IVolunteerManager.dart';
+import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 
-class VolunteerManager implements IVolunteerManager {
+class VolunteerManager implements IUserManager {
 
 
   final FirestoreService _firestoreService = FirestoreService();
 
   @override
-  Future<void> createVolunteer(Volunteer myVolunteer) async{
+  Future<void> createUser(myVolunteer) async{
+    if(myVolunteer is Volunteer){
+      throw ArgumentError('Volunteer must be of type Volunteer');
+      return;
+    }
    try{
      await _firestoreService.addData(collections().volunteers, myVolunteer.toMap());
    }catch(e){
@@ -19,7 +24,11 @@ class VolunteerManager implements IVolunteerManager {
   }
 
   @override
-  Future<void> editVolunteer(Volunteer myVolunteer)  async{
+  Future<void> editUser(myVolunteer)  async{
+    if(myVolunteer is  !Volunteer){
+      throw ArgumentError('Volunteer must be of type Volunteer');
+      return;
+    }
     try{
       var docID = await _firestoreService.getDocID(collections().volunteers, 'id', myVolunteer.id);
       await _firestoreService.updateData(collections().volunteers, docID!, myVolunteer.toMap());
@@ -29,7 +38,7 @@ class VolunteerManager implements IVolunteerManager {
   }
 
   @override
-  Future<Volunteer?> getVolunteer(String id) async {
+  Future<Volunteer?> getUserByUserID(String id) async {
     try{
       var docID = await _firestoreService.getDocID(collections().volunteers, 'id', id);
       var result = await _firestoreService.getDocument(collections().volunteers, docID!);
@@ -59,6 +68,19 @@ class VolunteerManager implements IVolunteerManager {
     }catch(e){
       debugPrint(e.toString());
     }
+  }
+
+  @override
+  Future<User?> FindUserByNumber(String number) {
+    // TODO: implement FindUserByNumber
+    throw UnimplementedError();
+  }
+
+
+  @override
+  Future<void> deleteUser(myUser) {
+    // TODO: implement deleteUser
+    throw UnimplementedError();
   }
 
 

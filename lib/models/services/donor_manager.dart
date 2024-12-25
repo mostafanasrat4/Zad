@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/donor.dart';
+import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
-import '../interfaces/IDonor_manager.dart';
 
-class DonorManager implements IDonorManager{
+
+class DonorManager implements IUserManager{
   final FirestoreService _firestoreService = FirestoreService();
   @override
-  Future<Donor?> FindDonorByNumber(String number)async {
+  Future<Donor?> FindUserByNumber(String number)async {
     try{
       var don = await _firestoreService.getDocumentByAttribute(collections().donors, 'number', number);
       Donor myDonor = Donor.fromMap(don!);
@@ -19,7 +20,11 @@ class DonorManager implements IDonorManager{
   }
 
   @override
-  Future<void> createDonor(Donor myUser) async{
+  Future<void> createUser(myUser) async{
+    if(myUser is !Donor){
+      throw ArgumentError('User must be of type Donor');
+      return;
+    }
     try {
       _firestoreService.addData(collections().donors, myUser.toMap());
       print('donor created successfully');
@@ -29,21 +34,38 @@ class DonorManager implements IDonorManager{
   }
 
   @override
-  Future<void> deleteDonor(Donor myUser)async {
-    String? docID = await _firestoreService.getDocID(collections().user, 'id', myUser.id);
-    await _firestoreService.deleteData(collections().user, docID!);
+  Future<void> deleteUser(myUser)async {
+    if(myUser is !Donor){
+      throw ArgumentError('User must be of type Donor');
+      return;
+    }
+    try {
+      String? docID = await _firestoreService.getDocID(
+          collections().user, 'id', myUser.id);
+      await _firestoreService.deleteData(collections().user, docID!);
+    }catch(e){
+      debugPrint(e.toString());
+    }
   }
 
   @override
-  Future<void> editDonor(Donor myUser)async {
-    String? docID =
-        await _firestoreService.getDocID(collections().user, 'id', myUser.id);
-    await _firestoreService.updateData(
-        collections().user, docID!, myUser.toMap());
+  Future<void> editUser( myUser)async {
+    if(myUser is !Donor){
+      throw ArgumentError('User must be of type Donor');
+      return;
+    }
+    try {
+      String? docID =
+      await _firestoreService.getDocID(collections().user, 'id', myUser.id);
+      await _firestoreService.updateData(
+          collections().user, docID!, myUser.toMap());
+    }catch(e){
+      debugPrint(e.toString());
+    }
   }
 
   @override
-  Future<Donor?> getDonorByUserID(String userID) async{
+  Future<Donor?> getUserByUserID(String userID) async{
     try {
       var user = await _firestoreService.getDocumentByAttribute(collections().user, 'id', userID);
       Donor myUser = Donor.fromMap(user!);

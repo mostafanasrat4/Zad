@@ -12,24 +12,36 @@ class UserManager implements IUserManager {
 
 
   @override
-  Future<void> createUser(User myUser) async {
-    try {
-      _firestoreService.addData(collections().user, myUser.toMap());
-      print('user created successfully');
-    } catch (e) {
-      print(e.toString());
+  Future<void> createUser(myUser) async {
+    if(myUser is User) {
+      try {
+        _firestoreService.addData(collections().user, myUser.toMap());
+        print('user created successfully');
+      } catch (e) {
+        print(e.toString());
+      }
+    }else{
+      print('error creating user');
     }
   }
 
   @override
-  Future<void> deleteUser(User myUser) async {
+  Future<void> deleteUser(myUser) async {
+    if(myUser is !User){
+      throw Exception('error deleting user');
+      return;
+    }
     String? docID =
     await _firestoreService.getDocID(collections().user, 'id', myUser.id);
     await _firestoreService.deleteData(collections().user, docID!);
   }
 
   @override
-  Future<void> editUser(User myUser) async {
+  Future<void> editUser(myUser) async {
+    if(myUser is !User){
+      throw Exception('error editing user');
+      return;
+    }
     String? docID =
     await _firestoreService.getDocID(collections().user, 'id', myUser.id);
     await _firestoreService.updateData(
