@@ -1,22 +1,46 @@
-// needs api keys and packages to be added to the dependencies
-// also needs to store user FCM token upon login or signup and to be fetched here
+// api key not shared on github
 
+import 'dart:async';
 import 'dart:convert';
-
+import 'dart:core';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:googleapis_auth/auth_io.dart' as auth;
-
 import 'package:http/http.dart' as http;
+import 'package:zad/keys/keys.dart';
+import 'package:zad/models/classes/collections.dart';
+import 'package:zad/models/services/firebase_services.dart';
 
 
 
 class FcmServices {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  final FirestoreService _firestoreService = FirestoreService();
+
+  Future<String?> getUserFCMToken() async {
+
+    String? token = await messaging.getToken();
+    print("FCM Token: $token");
+    return token;
+  }
+
+
+  Future<void> storeFCMToken(String userID) async {
+    String? token = await messaging.getToken();
+    await _firestoreService.addDataWithID(collections().FCM, userID, {"FCMToken": token});
+
+  }
+
+
+  Future <String?>LoadFCMToken(String userID)async{
+    var token = await _firestoreService.getDocument(collections().FCM, userID);
+    return token?['FCMToken'];
+  }
 
   Future<String> getAccessToken() async {
     try {
-      FirebaseMessaging.instance.requestPermission();
+      messaging.requestPermission();
       // Your client ID and client secret obtained from Google Cloud Console
-      final serviceAccountJson = key;
+      final serviceAccountJson = APIKeys().key;
 
       List<String> scopes = [
         "https://www.googleapis.com/auth/userinfo.email",
@@ -51,8 +75,8 @@ class FcmServices {
     try {
       final String serverKey = await getAccessToken(); // Your FCM access token
       final String fcmEndpoint = 'https://fcm.googleapis.com/v1/projects/${APIKeys().AppID}/messages:send';
-      final String? currentFCMToken;
-      final String? TargetFCMToken;
+      final String? currentFCMToken = await getUserFCMToken();
+      final String? TargetFCMToken = await LoadFCMToken(userID);
       if (currentFCMToken == null) {
         print('Failed to retrieve FCM token');
         return;

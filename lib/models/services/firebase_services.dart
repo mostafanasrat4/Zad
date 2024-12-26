@@ -215,4 +215,13 @@ Future<void> updateSingelAtt(String collection, String documentID, String att, S
     }
   }
 
+
+  Future<void> addDataWithID(String collection, String documentID, Map<String, dynamic> data) async {
+    try {
+      await _db.collection(collection).doc(documentID).set(data);
+    } catch (e) {
+      print("Error adding data: $e");
+    }
+  }
+
 }

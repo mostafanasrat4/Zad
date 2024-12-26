@@ -9,6 +9,7 @@ class collections{
   String donors = "donors";
   String admins="admins";
   String documents="documents";
+  String FCM="fcm";
 
 
 }
