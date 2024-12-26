@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:zad/controllers/auth_wrapper_controller.dart';
 import 'firebase_options.dart';
 
@@ -8,6 +9,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await initLocalStorage();
   runApp(const MyApp());
 }
 
