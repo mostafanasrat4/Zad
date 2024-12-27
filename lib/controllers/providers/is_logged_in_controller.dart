@@ -14,7 +14,6 @@ class isLogged extends ChangeNotifier {
 
   void changeState() {
     _isLoggedIn = !_isLoggedIn;
-    //SharedPrefs().saveBool('logged', _isLoggedIn);
     notifyListeners();
   }
 }
