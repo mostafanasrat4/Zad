@@ -62,8 +62,9 @@ class BenficiaryManager implements IUserManager{
   }
 
   @override
-  Future<List<Beneficiary>> getApprovedBeneficiaries(String status) async {
+  Future<List<Beneficiary>> getApprovedBeneficiaries() async {
     try{
+      String status = 'status';
       var result = await _firestoreService.getList(collections().beneficiary, status, 'approved');
       List<Beneficiary> beneficiaries = [];
       for(var item in result){

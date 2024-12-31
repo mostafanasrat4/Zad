@@ -11,7 +11,8 @@ import 'package:zad/models/classes/Event.dart';
 
 
 class FirestoreService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  static final FirebaseFirestore _db = FirebaseFirestore.instance;
+
 
   // Get document ID based on attribute
   Future<String?> getDocID(String collection, String attribute, String value) async {
