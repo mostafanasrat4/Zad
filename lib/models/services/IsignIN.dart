@@ -1,3 +1,3 @@
-abstract class IsignIN{
-signIN(String email, String password);
+abstract class ISignIn{
+signInWithEmailAndPassword(String email, String password);
 }

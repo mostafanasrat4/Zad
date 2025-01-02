@@ -7,7 +7,7 @@ class Admin extends User {
     String? email,
     String? number,
     String? imageURL,
-    String? type= "donor",
+    String? type= "admin",
   }) : super(id, name, email, number, imageURL, type);
 
 

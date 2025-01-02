@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:zad/models/services//firebase_auth_instance.dart';
 
-class signUP{
+class SignUp{
   final FirebaseAuth authInstance = FirebaseAuthInstance().firebaseAuth;
 
 
@@ -14,7 +15,7 @@ class signUP{
       );
       return userCredential.user;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return null;
     }
   }
