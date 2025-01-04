@@ -7,46 +7,56 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
-import 'package:zad/views/admin_dashboard_screen.dart';
 
 class SignInController{
-  Future<bool> signIn(String email, String password, BuildContext context) async {
-    // 1. Sign-in with Firebase Authentication
-    SignIn signIn = SignIn();
-    firebase_auth.User? firebaseAuthUser = await signIn.signInWithEmailAndPassword(email, password);
+  final SignIn _signIn = SignIn();
+  final UserManager _userManager = UserManager();
 
-    // 2. If signed in successfully, get current user id
-    if(firebaseAuthUser == null) {
-      return false;
-    }
-    String userId = firebaseAuthUser.uid;
+  Future<void> signIn(String email, String password, BuildContext context) async {
 
-    // 3. Fetch current user from Firestore by id
-    UserManager userManager = UserManager();
-    User? user = await userManager.getUserByUserID(userId);
-    String? userType = user?.type;
+    try{
+      // 1. Sign-in with Firebase Authentication
+      firebase_auth.User? firebaseAuthUser = await _signIn.signInWithEmailAndPassword(email, password);
 
-    // 4. Check user type and set dashboard strategy
-    DashboardContext dashboardContext = DashboardContext();
-    switch(userType){
-      case "admin":
-        dashboardContext.setDashboardStrategy(AdminDashboardStrategy());
-        break;
-      case "donor":
-        dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
-        break;
-      case "volunteer":
-        dashboardContext.setDashboardStrategy(VolunteerDashboardStrategy());
-        break;
-    }
+      // 2. If signed in successfully, get current user id
+      // TODO: Make signInWithEmailAndPassword() return different errors in sign in and handle them here
+      if(firebaseAuthUser == null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid email or password')));
+      }
+      String userId = firebaseAuthUser!.uid;
 
-    // 5. Invoke showDashboard() in DashboardContext
-    Widget dashboard = dashboardContext.showDashboard();
-    Navigator.pushAndRemoveUntil(
+      // 3. Fetch current user from Firestore by userId
+      User? user = await _userManager.getUserByUserID(userId);
+      String? userType = user?.type;
+
+      // 4. Check user type and set dashboard strategy
+      DashboardContext dashboardContext = DashboardContext();
+      switch(userType){
+        case "admin":
+          dashboardContext.setDashboardStrategy(AdminDashboardStrategy());
+          break;
+        case "donor":
+          dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
+          break;
+        case "volunteer":
+          dashboardContext.setDashboardStrategy(VolunteerDashboardStrategy());
+          break;
+        default:
+          dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
+      }
+
+      // 5. Invoke showDashboard() in DashboardContext
+      Widget dashboard = dashboardContext.getDashboard();
+      Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => dashboard),
-          (Route<dynamic> route) => false,
-    );
-    return true;
+            (Route<dynamic> route) => false,
+      );
+
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred: $e')),
+      );
+    }
   }
 }

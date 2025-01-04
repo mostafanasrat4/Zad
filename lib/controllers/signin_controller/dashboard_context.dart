@@ -8,7 +8,7 @@ class DashboardContext{
     _dashboardStrategy = dashboardStrategy;
   }
 
-  Widget showDashboard(){
+  Widget getDashboard(){
     return _dashboardStrategy.displayDashboard();
   }
 
