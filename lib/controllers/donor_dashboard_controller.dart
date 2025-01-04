@@ -11,7 +11,7 @@ class DonorDashboardController{
 // function that returns list of Beneficiaries to donate to
   Future<List<Beneficiary>> getBeneficiaries() async{
     try{
-      List<Beneficiary> beneficiaries = await BenficiaryManager().getApprovedBeneficiaries();
+      List<Beneficiary> beneficiaries = await BeneficiaryManager().getApprovedBeneficiaries();
       return beneficiaries;
     }catch(e){
       debugPrint(e.toString());

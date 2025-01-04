@@ -15,7 +15,7 @@ class Volunteer extends User {
     required this.skills,
     required this.availability,
     required this.preferrences,
-  }) : super(id, fullName, email, phoneNo, imageURL, type);
+  }) : super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
 
 
   factory Volunteer.fromMap(Map<String, dynamic> map) {

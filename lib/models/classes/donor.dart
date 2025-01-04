@@ -8,7 +8,7 @@ class Donor extends User {
     String? phoneNo,
     String? imageURL,
     String? type= "donor",
-  }) : super(id, fullName, email, phoneNo, imageURL, type);
+  }) : super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
 
 
 

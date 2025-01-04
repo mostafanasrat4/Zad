@@ -8,11 +8,10 @@ import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 
-class BenficiaryManager implements IUserManager{
+class BeneficiaryManager implements IUserManager{
   final FirestoreService _firestoreService = FirestoreService();
 
-  @override
-  Future<void> ApproveBeneficiary(String id)async {
+  Future<void> approveBeneficiary(String id)async {
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', id);
       await _firestoreService.updateSingelAtt(collections().beneficiary, docID!, 'status', 'approved');
@@ -35,7 +34,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<void> disapproveBeneficiary(String id) async{
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', id);
@@ -61,7 +59,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<List<Beneficiary>> getApprovedBeneficiaries() async {
     try{
       String status = 'status';
@@ -78,7 +75,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<List<Beneficiary>> getBeneficiaries()async {
     try {
       var result = await _firestoreService.getCollection(
@@ -96,7 +92,6 @@ class BenficiaryManager implements IUserManager{
     }
 
 
-  @override
   Future<Beneficiary?> getBeneficiary(String id) async{
     try{
       var result = await _firestoreService.getDocumentByAttribute(collections().beneficiary,'id' ,id);
@@ -108,7 +103,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<List<Beneficiary>> getDisapprovedBeneficiaries(String status) async{
     try{
       var result = await _firestoreService.getList(collections().beneficiary, status, 'disapproved');
@@ -124,7 +118,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<List<Beneficiary>> getPendingBeneficiaries(String status) async {
     try{
       var result = await _firestoreService.getList(collections().beneficiary, status, 'pending');
@@ -140,7 +133,6 @@ class BenficiaryManager implements IUserManager{
     }
   }
 
-  @override
   Future<void> removeBeneficiary(String id)async {
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', id);

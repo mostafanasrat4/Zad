@@ -21,7 +21,9 @@ class SignInController{
       // 2. If signed in successfully, get current user id
       // TODO: Make signInWithEmailAndPassword() return different errors in sign in and handle them here
       if(firebaseAuthUser == null) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid email or password')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Invalid email or password')),
+        );
       }
       String userId = firebaseAuthUser!.uid;
 

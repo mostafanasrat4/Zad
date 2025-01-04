@@ -25,7 +25,7 @@ class Beneficiary extends User {
     String? imageURL,
     String? type='beneficiary',
     required String id,
-  }) : super(id, fullName, email, phoneNo, imageURL, type);
+  }) : super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
 
   factory Beneficiary.fromMap(Map<String, dynamic> map) {
     return Beneficiary(

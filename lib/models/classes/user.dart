@@ -6,14 +6,21 @@ class User {
   String? imageURL;
   String? type;
 
-  User(this.id, this.fullName, this.email, this.phoneNo, this.imageURL, this.type);
+  User({
+    required this.id,
+    required this.fullName,
+    required this.email,
+    required this.phoneNo,
+    this.imageURL,
+    required this.type
+  });
   factory User.fromMap(Map<String, dynamic> map) => User(
-        map['id'] ?? '',
-        map['fullName'] ?? '',
-        map['email'] ?? '',
-        map['phoneNo'] ?? '',
-        map['imageURL'] ?? '',
-        map['type'] ?? '',
+        id: map['id'] ?? '',
+        fullName: map['fullName'] ?? '',
+        email: map['email'] ?? '',
+        phoneNo: map['phoneNo'] ?? '',
+        imageURL: map['imageURL'] ?? '',
+        type: map['type'] ?? '',
       );
 
   Map<String, dynamic> toMap() => {
