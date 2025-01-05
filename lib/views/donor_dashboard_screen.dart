@@ -12,52 +12,86 @@ class DonorDashboardScreen extends StatefulWidget {
 
   @override
   State<DonorDashboardScreen> createState() => _DonorDashboardScreenState();
-
 }
 
 class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
-  List<Beneficiary> ben=[];
-  initState() {
+  List<Beneficiary> ben = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
     super.initState();
     load_data();
   }
-  load_data() async {
-    ben = await DonorDashboardController().getBeneficiaries();
-  return ben;
-  }
-  _refresh() async {
+
+  Future<void> load_data() async {
     setState(() {
-      load_data();
+      isLoading = true;
+    });
+    ben = await DonorDashboardController().getBeneficiaries();
+    setState(() {
+      isLoading = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.watch<theme>().dark?CupertinoColors.darkBackgroundGray:CupertinoColors.extraLightBackgroundGray,
+      backgroundColor: context.watch<theme>().dark
+          ? CupertinoColors.darkBackgroundGray
+          : CupertinoColors.extraLightBackgroundGray,
       appBar: AppBar(
-        backgroundColor: context.watch<theme>().dark?Colors.black:Colors.white,
-        title: const Text('Donor Dashboard'),
+        backgroundColor:
+            context.watch<theme>().dark ? Colors.black : Colors.white,
+        title: const Text(
+          'Donor Dashboard',
+          style: TextStyle(color: Colors.blueAccent),
+        ),
         actions: [
-          IconButton(onPressed: (){
-            context.read<theme>().changeTheme();
-          }, icon: context.read<theme>().dark?const Icon(Icons.light_mode):const Icon(Icons.dark_mode))
+          IconButton(
+            onPressed: () {
+              context.read<theme>().changeTheme();
+            },
+            icon: context.read<theme>().dark
+                ? const Icon(Icons.light_mode, color: Colors.yellow)
+                : const Icon(Icons.dark_mode, color: Colors.blueAccent),
+          )
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            ben.isNotEmpty?
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: ben.map((Beneficiary b)=> GestureDetector(child: BeneficiaryCard(name: b.fullName!, image: b.imageURL), onTap: (){
-                //toDO: navigate to beneficiary profile
-              },)).toList(),
-
-        ):const Center(child: Text('No beneficiaries available')),
-        ],
-            ),
-      ),);
+        padding: const EdgeInsets.all(16.0),
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ben.isNotEmpty
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 4 / 5,
+                    ),
+                    itemCount: ben.length,
+                    itemBuilder: (context, index) {
+                      final beneficiary = ben[index];
+                      return GestureDetector(
+                        onTap: () {},
+                        child: BeneficiaryCard(
+                          name: beneficiary.fullName ?? "No Name",
+                          image: beneficiary.imageURL,
+                        ),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: Text(
+                      "No beneficiaries available",
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    ),
+                  ),
+      ),
+    );
   }
 }
