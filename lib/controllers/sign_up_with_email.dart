@@ -7,7 +7,7 @@ class SignUp{
 
 
   // Sign Up Method
-  Future<User?> signUpWithEmailPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential userCredential = await authInstance.createUserWithEmailAndPassword(
         email: email,

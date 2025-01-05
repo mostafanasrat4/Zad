@@ -12,9 +12,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initLocalStorage();
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (context) => theme()),
-  ], child: const MyApp()));
+  runApp(
+      MultiProvider(providers: [
+            ChangeNotifierProvider(create: (context) => theme()),
+          ],
+      child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,10 +26,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Zad',
       theme: context.watch<theme>().dark ? ThemeData.dark() : ThemeData.light(),
       debugShowCheckedModeBanner: false,
-      home: const authWrapper(),
+      home: const AuthWrapper(),
     );
   }
 }

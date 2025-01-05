@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:zad/controllers/signup_facade.dart';
+import 'package:zad/models/classes/user.dart';
 import 'package:zad/views/signin_screen.dart';
 import 'package:zad/controllers/sign_up_with_email.dart';
 
@@ -6,10 +9,12 @@ class SignUpScreen extends StatelessWidget {
 
   SignUpScreen({super.key});
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController phoneNoController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneNoController = TextEditingController();
+  final SignUpController _signUpController = SignUpController();
+  final _uuid = Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: nameController,
+                controller: _nameController,
                 keyboardType: TextInputType.name,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
@@ -56,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: emailController,
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'mohammad@example.com',
@@ -68,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -79,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: phoneNoController,
+                controller: _phoneNoController,
                 keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: '01012345678',
@@ -97,7 +102,15 @@ class SignUpScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async{
                     // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                    SignUp().signUpWithEmailPassword(emailController.text, passwordController.text);
+                    //SignUp().signUpWithEmailAndPassword(emailController.text, passwordController.text);
+                    User user = User(
+                        id: _uuid.v4(),
+                        fullName: _nameController.text,
+                        email: _emailController.text,
+                        phoneNo: _phoneNoController.text,
+                        type: 'donor'
+                    );
+                    _signUpController.signUpFacade(user, _passwordController.text, context);
 
                   },
                   style: ElevatedButton.styleFrom(
