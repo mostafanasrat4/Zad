@@ -24,8 +24,9 @@ class SignInController{
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid email or password')),
         );
+        return;
       }
-      String userId = firebaseAuthUser!.uid;
+      String userId = firebaseAuthUser.uid;
 
       // 3. Fetch current user from Firestore by userId
       User? user = await _userManager.getUserByUserID(userId);

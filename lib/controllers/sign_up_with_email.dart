@@ -13,7 +13,11 @@ class SignUp{
         email: email,
         password: password,
       );
-      return userCredential.user;
+      final user = userCredential.user;
+      if(user != null){
+        debugPrint('Signed up successfully with email: ${user.email.toString()} and uid: ${ user.uid.toString()}');
+      }
+      return user;
     } catch (e) {
       debugPrint(e.toString());
       return null;

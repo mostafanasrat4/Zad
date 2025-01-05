@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zad/controllers/signin_controller/signin_controller.dart';
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/views/signup_screen.dart';
 // TODO: based on user type navigate replacement to a different screen, save user id in shared preferences and use it across the app
@@ -6,8 +7,9 @@ class SignInScreen extends StatelessWidget {
 
   SignInScreen({super.key});
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final SignInController _signInController = SignInController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class SignInScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: emailController,
+                controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   hintText: 'mohammad@example.com',
@@ -53,7 +55,7 @@ class SignInScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: TextFormField(
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -70,7 +72,14 @@ class SignInScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async{
                     // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                    SignIn().signInWithEmailAndPassword(emailController.text, passwordController.text);
+                    //SignIn().signInWithEmailAndPassword(emailController.text, passwordController.text);
+                    try {
+                      _signInController.signIn(_emailController.text, _passwordController.text, context);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('An error occurred: $e')),
+                      );
+                    }
 
                   },
                   style: ElevatedButton.styleFrom(

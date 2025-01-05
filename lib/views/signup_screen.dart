@@ -101,17 +101,22 @@ class SignUpScreen extends StatelessWidget {
                 height: 40.0,
                 child: ElevatedButton(
                   onPressed: () async{
-                    // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                    //SignUp().signUpWithEmailAndPassword(emailController.text, passwordController.text);
-                    User user = User(
-                        id: _uuid.v4(),
-                        fullName: _nameController.text,
-                        email: _emailController.text,
-                        phoneNo: _phoneNoController.text,
-                        type: 'donor'
-                    );
-                    _signUpController.signUpFacade(user, _passwordController.text, context);
-
+                    try {
+                      // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
+                      //SignUp().signUpWithEmailAndPassword(emailController.text, passwordController.text);
+                      User user = User(
+                          id: _uuid.v4(),
+                          fullName: _nameController.text,
+                          email: _emailController.text,
+                          phoneNo: _phoneNoController.text,
+                          type: 'donor'
+                      );
+                      _signUpController.signUpFacade(user, _passwordController.text, context);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('An error occurred: $e')),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

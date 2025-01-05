@@ -8,9 +8,9 @@ import 'package:zad/models/services/donor_manager.dart';
 import 'package:zad/models/services/local_user_data.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/services/volunteer_manager.dart';
+import 'package:zad/views/signin_screen.dart';
 import '../models/classes/user.dart';
 
-// TODO: login and signup based on user type
 class SignUpController {
   final SignUp _signUp = SignUp();
   final UserManager _userManager = UserManager();
@@ -27,6 +27,7 @@ class SignUpController {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error in signup')),
         );
+        return;
       }
       myUser.id = firebaseAuthUser!.uid; // To keep ids of both Firebase Authentication and Firestore consistent
 
@@ -54,6 +55,14 @@ class SignUpController {
         _manager = DonorManager();
       }
       await _manager.createUser(myUser);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Signed up successfully!')),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => SignInScreen()),
+            (Route<dynamic> route) => false,
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('An error occurred: $e')),

@@ -18,7 +18,7 @@ class SignIn implements ISignIn {
       );
       final user = userCredential.user;
       if(user != null){
-        debugPrint('Signed in successfully with email:${user.email.toString()} and uid: ${ user.uid.toString()}');
+        debugPrint('Signed in successfully with email: ${user.email.toString()} and uid: ${ user.uid.toString()}');
       }
       return user;
     } catch (e) {
