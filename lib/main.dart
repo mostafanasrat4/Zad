@@ -12,7 +12,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initLocalStorage();
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => theme()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
