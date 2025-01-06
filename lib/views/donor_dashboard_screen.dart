@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zad/controllers/donor_dashboard_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
-import 'package:zad/main.dart';
-import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/views/widgets/beneficiary_card.dart';
+import '../models/services/beneficiary_list.dart';
 
 class DonorDashboardScreen extends StatefulWidget {
   const DonorDashboardScreen({super.key});
@@ -15,27 +14,29 @@ class DonorDashboardScreen extends StatefulWidget {
 }
 
 class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
-  List<Beneficiary> ben = [];
+  BeneficiaryList beneficiaryList = BeneficiaryList([]);
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    load_data();
+    loadData();
   }
 
-  Future<void> load_data() async {
+  Future<void> loadData() async {
     setState(() {
       isLoading = true;
     });
-    ben = await DonorDashboardController().getBeneficiaries();
+    final beneficiaries = await DonorDashboardController().getBeneficiaries();
     setState(() {
+      beneficiaryList = BeneficiaryList(beneficiaries);
       isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final iterator = beneficiaryList.createIterator();
     return Scaffold(
       backgroundColor: context.watch<theme>().dark
           ? CupertinoColors.darkBackgroundGray
@@ -64,7 +65,7 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : ben.isNotEmpty
+            : iterator.hasNext()
                 ? GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,13 +74,13 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
                       mainAxisSpacing: 12,
                       childAspectRatio: 4 / 5,
                     ),
-                    itemCount: ben.length,
+                    itemCount: beneficiaryList.beneficiaries.length,
                     itemBuilder: (context, index) {
-                      final beneficiary = ben[index];
+                      final beneficiary = iterator.next();
                       return GestureDetector(
                         onTap: () {},
                         child: BeneficiaryCard(
-                          name: beneficiary.fullName ?? "No Name",
+                          name: beneficiary!.fullName ?? "No Name",
                           image: beneficiary.imageURL,
                         ),
                       );

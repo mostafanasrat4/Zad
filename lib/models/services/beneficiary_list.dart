@@ -12,4 +12,6 @@ class BeneficiaryList implements BeneficiaryCollection
   Iterator<Beneficiary> createIterator() {
     return BeneficiaryIterator(_beneficiaries);
   }
+
+  List<Beneficiary> get beneficiaries => _beneficiaries;
 }
