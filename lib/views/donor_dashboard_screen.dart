@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zad/controllers/donor_dashboard_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
+import 'package:zad/views/Beneficiary_screen.dart';
 import 'package:zad/views/widgets/beneficiary_card.dart';
 import '../models/services/beneficiary_list.dart';
 
@@ -78,7 +79,9 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
                     itemBuilder: (context, index) {
                       final beneficiary = iterator.next();
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BeneficiaryScreen( ben: beneficiary)));
+                        },
                         child: BeneficiaryCard(
                           name: beneficiary!.fullName ?? "No Name",
                           image: beneficiary.imageURL,
