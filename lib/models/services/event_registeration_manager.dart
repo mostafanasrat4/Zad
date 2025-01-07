@@ -59,9 +59,19 @@ class EventRegisterationManager implements IEventRegisteration{
 
 
   @override
-  Future<List<Event>> getUserAttendedEvents(String userID) {
-    // TODO: implement getUserAttendedEvents
-    throw UnimplementedError();
+  Future<List<Event>> getUserAttendedEvents(String userID)async {
+    try{
+      var registeredEventsMaps = await _firestoreService.getListby2Attributes(collections().eventRegisterations, 'userID', userID, 'attended', true as String);
+      List<Event> registeredEvents = [];
+      for(var registeredEventMap in registeredEventsMaps){
+        var registeredEvent = await _firestoreService.getDocumentByAttribute(collections().events, 'id', registeredEventMap['eventID']);
+        registeredEvents.add(Event.fromMap(registeredEvent!));
+      }
+      return registeredEvents;
+    }catch(e){
+      debugPrint(e.toString());
+      return [];
+    }
   }
 
   @override

@@ -88,9 +88,10 @@ class EventManager implements IEventManager{
   }
 
   @override
-  Future<List<Event>> getVolunteerEvents(String userID) {
+  Future<List<Event>> getVolunteerEvents(String userID) async{
     // TODO: implement getVolunteerEvents
     throw UnimplementedError();
+
   }
 
 }
