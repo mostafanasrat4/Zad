@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:zad/controllers/Image_adapter.dart';
 
 class BeneficiaryCard extends StatelessWidget {
-  String name;
-  String? image;
-
+  final String name;
+  final String? image;
 
   BeneficiaryCard({super.key, required this.name, this.image});
 
