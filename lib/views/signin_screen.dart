@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:zad/controllers/signin_controller/signin_controller.dart';
 import 'package:zad/controllers/signin_with_email.dart';
+import 'package:zad/models/classes/user.dart';
+import 'package:zad/models/services/local_user_data.dart';
+import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/views/signup_screen.dart';
 // TODO: based on user type navigate replacement to a different screen, save user id in shared preferences and use it across the app
 class SignInScreen extends StatelessWidget {
@@ -71,10 +74,14 @@ class SignInScreen extends StatelessWidget {
                 height: 40.0,
                 child: ElevatedButton(
                   onPressed: () async{
-                    // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                    //SignIn().signInWithEmailAndPassword(emailController.text, passwordController.text);
+                    // TODO: replace the empty returns with actual validation
                     try {
-                      _signInController.signIn(_emailController.text, _passwordController.text, context);
+                      String? userID = await _signInController.signIn(_emailController.text, _passwordController.text, context);
+                      if(userID == null) return;
+                      //ToDo fetch userID from firebase auth,
+                      User? user = await UserManager().getUserByUserID(userID);
+                      if(user == null) return;
+                      LocalUserData().saveUserData(user.toMap());
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('An error occurred: $e')),
