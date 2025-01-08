@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:zad/views/card_template.dart';
 
 class EventCard extends CardTemplate {
-  final String productName;
-  final String description;
+  final String name;
+  final String location;
+  final DateTime date;
 
   EventCard({
-    required this.productName,
-    required this.description,
+    required this.name,
+    required this.location,
+    required this.date,
   });
 
   @override
@@ -21,7 +23,7 @@ class EventCard extends CardTemplate {
   @override
   Widget buildTitle() {
     return Text(
-      productName,
+      name,
       style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -32,7 +34,7 @@ class EventCard extends CardTemplate {
   @override
   Widget buildContent() {
     return Text(
-      description,
+      "Location: $location",
       style: const TextStyle(fontSize: 14),
     );
   }
@@ -40,7 +42,7 @@ class EventCard extends CardTemplate {
   @override
   Widget buildFooter() {
     return Text(
-      'footer',
+      "Date: ${date.toLocal()}",
       style: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
