@@ -35,12 +35,13 @@ class VolunteerDashboardController {
     return events;
   }
 
-  Future<List<String>> getRegisteredEventIDs() async {
+  Future<List<Event>> getRegisteredEventIDs() async {
     var user = await LocalUserData().loadUserData();
     if (user == null) return [];
     var userID = user.id;
     var registeredEvents =
         await EventRegisterationManager().getUserRegisterations(userID);
-    return registeredEvents.map((event) => event.id).toList();
+
+    return registeredEvents; //registeredEvents.map((event) => event.id).toList();
   }
 }

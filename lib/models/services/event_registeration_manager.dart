@@ -88,12 +88,10 @@ class EventRegisterationManager implements IEventRegisteration {
   @override
   Future<List<Event>> getUserRegisterations(String userID) async {
     try {
-      var registeredEventsMaps = await _firestoreService.getList(
-          collections().eventRegisterations, 'userID', userID);
+      var registeredEventsMaps = await _firestoreService.getList(collections().eventRegisterations, 'userID', userID);
       List<Event> registeredEvents = [];
       for (var registeredEventMap in registeredEventsMaps) {
-        var registeredEvent = await _firestoreService.getDocumentByAttribute(
-            collections().events, 'id', registeredEventMap['eventID']);
+        var registeredEvent = await _firestoreService.getDocumentByAttribute(collections().events, 'id', registeredEventMap['eventID']);
         registeredEvents.add(Event.fromMap(registeredEvent!));
       }
       return registeredEvents;
@@ -109,22 +107,6 @@ class EventRegisterationManager implements IEventRegisteration {
       await _firestoreService.addData(
           collections().eventRegisterations, myEventRegisteration.toMap());
       // Update the volunteer's registered events
-      var volunteer = await _firestoreService.getDocumentByAttribute(
-        collections().volunteers,
-        'id',
-        myEventRegisteration.userID,
-      );
-
-      if (volunteer != null) {
-        var updatedVolunteer = Volunteer.fromMap(volunteer);
-        updatedVolunteer.registeredEvents.add(myEventRegisteration.EventID);
-
-        await _firestoreService.updateData(
-          collections().volunteers,
-          volunteer['docID'],
-          updatedVolunteer.toMap(),
-        );
-      }
     } catch (e) {
       // TODO: Remove debug Prints
       debugPrint(e.toString());
