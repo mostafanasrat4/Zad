@@ -40,7 +40,7 @@ class _DonorNavigationManagerState extends State<DonorNavigationManager> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: context.watch<theme>().dark?
         CupertinoColors.darkBackgroundGray
-            : CupertinoColors.extraLightBackgroundGray,,
+            : CupertinoColors.extraLightBackgroundGray,
         currentIndex: _currentIndex,
         onTap: _onTap,
         items: const [
