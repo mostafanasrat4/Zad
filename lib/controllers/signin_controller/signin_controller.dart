@@ -7,7 +7,7 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
-import 'package:zad/views/donor_navigation_bar.dart';
+import 'package:zad/views/donor_screens/donor_navigation_bar.dart';
 import 'package:zad/views/profile_screen.dart';
 
 import '../../models/services/local_user_data.dart';
@@ -67,9 +67,9 @@ class SignInController{
       Widget dashboard = dashboardContext.getDashboard();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => dashboard),
+        //MaterialPageRoute(builder: (context) => dashboard),
         // MaterialPageRoute(builder: (context) => ProfileScreen()),
-        //MaterialPageRoute(builder: (context) => DonorNavigationManager()),
+        MaterialPageRoute(builder: (context) => DonorNavigationManager()),
         (Route<dynamic> route) => false,
       );
 
