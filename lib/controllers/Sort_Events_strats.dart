@@ -3,52 +3,58 @@
 import 'package:zad/controllers/interfaces/ISort_Events.dart';
 import 'package:zad/models/classes/event.dart';
 
-class sortEventByDate implements ISortEvents{
+class sortEventByDate implements ISortEvents {
   @override
   List<Event> sortEvents(List<Event> events) {
-    // TODO: implement sortEvents
-    throw UnimplementedError();
+    events.sort((a, b) => a.date.compareTo(b.date));
+    return events;
   }
-
 }
 
-class sortEventByLocation implements ISortEvents{
+class sortEventByLocation implements ISortEvents {
   @override
   List<Event> sortEvents(List<Event> events) {
-    // TODO: implement sortEvents
-    throw UnimplementedError();
+    events.sort((a, b) => a.location.compareTo(b.location));
+    return events;
   }
-
 }
 
-class sortEventBySkill implements ISortEvents{
+class sortEventBySkill implements ISortEvents {
   @override
   List<Event> sortEvents(List<Event> events) {
-    // TODO: implement sortEvents
-    throw UnimplementedError();
+    events.retainWhere((event) => event.SkillsNeeded?.isNotEmpty ?? false);
+    return events;
   }
-
 }
 
-class sortEventByType implements ISortEvents{
+class sortEventByType implements ISortEvents {
   @override
   List<Event> sortEvents(List<Event> events) {
-    // TODO: implement sortEvents
-    throw UnimplementedError();
+    events.sort((a, b) => (a.type ?? "").compareTo(b.type ?? ""));
+    return events;
   }
-
 }
 
-class setStrategy{
-   late ISortEvents _strategy;
-   switchStrategy(String strategy){
-     switch(strategy){
-       case "Date": return sortEventByDate();
-       case "Location": return sortEventByLocation();
-       case "Type": return sortEventByType();
-       case "Skill": return sortEventBySkill();
-       default: return sortEventByDate();
-     }
-   }
-
+class setStrategy {
+  late ISortEvents _strategy;
+  ISortEvents switchStrategy(String strategy) {
+    switch (strategy) {
+      case "Date":
+        _strategy = sortEventByDate();
+        break;
+      case "Location":
+        _strategy = sortEventByLocation();
+        break;
+      case "Type":
+        _strategy = sortEventByType();
+        break;
+      case "Skill":
+        _strategy = sortEventBySkill();
+        break;
+      default:
+        _strategy = sortEventByDate();
+        break;
+    }
+    return _strategy;
+  }
 }
