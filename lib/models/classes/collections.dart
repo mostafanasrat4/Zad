@@ -10,6 +10,7 @@ class collections{
   String admins="admins";
   String documents="documents";
   String FCM="fcm";
+  String Subscribers="subscribers";
 
 
 }

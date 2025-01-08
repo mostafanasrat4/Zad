@@ -1,3 +1,3 @@
 abstract class IObserver{
-  void notify(String eventType, String title, String body);
+  void notify(String title, String body, String topic);
 }
