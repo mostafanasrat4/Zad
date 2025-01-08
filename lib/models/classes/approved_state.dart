@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:zad/models/classes/approval_context_state.dart';
 import 'package:zad/models/interfaces/approval_state.dart';
 
@@ -7,17 +8,17 @@ class ApprovedState implements ApprovalState {
   ApprovedState(this.context);
 
   @override
-  void approve() {
-    print("Already approved.");
+  bool approve() {
+    return false;
   }
 
   @override
-  void reject() {
-    print("Cannot reject, it is already approved.");
+  bool reject() {
+    return true;
   }
 
   @override
   void process() {
-    print("Request is approved and processed.");
+    debugPrint("Request is approved and processed.");
   }
 }

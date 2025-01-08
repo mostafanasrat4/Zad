@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/approval_context_state.dart';
 import 'package:zad/models/interfaces/approval_state.dart';
 
@@ -7,19 +8,19 @@ class PendingState implements ApprovalState {
   PendingState(this.context);
 
   @override
-  void approve() {
-    print("Approved!");
+  bool approve() {
     context.setState(context.approvedState);
+    return true;
   }
 
   @override
-  void reject() {
-    print("Rejected!");
+  bool reject() {
     context.setState(context.rejectedState);
+    return true;
   }
 
   @override
   void process() {
-    print("Request is pending, please approve or reject.");
+    debugPrint("Request is pending, please approve or reject.");
   }
 }
