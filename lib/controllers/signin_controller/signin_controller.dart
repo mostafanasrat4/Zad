@@ -7,21 +7,21 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/views/donor_navigation_bar.dart';
 import 'package:zad/views/profile_screen.dart';
+
+import '../../models/services/local_user_data.dart';
 
 class SignInController{
   final SignIn _signIn = SignIn();
   final UserManager _userManager = UserManager();
+  final LocalUserData _localUserData = LocalUserData();
 
   Future<String?> signIn(String email, String password, BuildContext context) async {
 
     try{
       // 1. Sign-in with Firebase Authentication
       firebase_auth.User? firebaseAuthUser = await _signIn.signInWithEmailAndPassword(email, password);
-      if(firebaseAuthUser == null) {
-        return null;
-      }
-      String userId = firebaseAuthUser.uid;
 
       // 2. If signed in successfully, get current user id
       // TODO: Make signInWithEmailAndPassword() return different errors in sign in and handle them here
@@ -29,15 +29,25 @@ class SignInController{
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid email or password')),
         );
-        return userId;
+        return null;
       }
-
+      String userId = firebaseAuthUser.uid;
 
       // 3. Fetch current user from Firestore by userId
       User? user = await _userManager.getUserByUserID(userId);
-      String? userType = user?.type;
+      if(user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error in getting user data!')),
+        );
+        return null;
+      }
+
+      // 4. Store user data in local storage
+      _localUserData.clear();
+      _localUserData.saveUserData(user.toMap());
 
       // 4. Check user type and set dashboard strategy
+      String? userType = user.type;
       DashboardContext dashboardContext = DashboardContext();
       switch(userType){
         case "admin":
@@ -57,8 +67,10 @@ class SignInController{
       Widget dashboard = dashboardContext.getDashboard();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => /*dashboard*/ProfileScreen()),
-            (Route<dynamic> route) => false,
+        MaterialPageRoute(builder: (context) => dashboard),
+        // MaterialPageRoute(builder: (context) => ProfileScreen()),
+        //MaterialPageRoute(builder: (context) => DonorNavigationManager()),
+        (Route<dynamic> route) => false,
       );
 
     } catch (e) {

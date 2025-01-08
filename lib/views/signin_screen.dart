@@ -76,12 +76,7 @@ class SignInScreen extends StatelessWidget {
                   onPressed: () async{
                     // TODO: replace the empty returns with actual validation
                     try {
-                      String? userID = await _signInController.signIn(_emailController.text, _passwordController.text, context);
-                      if(userID == null) return;
-                      //ToDo fetch userID from firebase auth,
-                      User? user = await UserManager().getUserByUserID(userID);
-                      if(user == null) return;
-                      LocalUserData().saveUserData(user.toMap());
+                      await _signInController.signIn(_emailController.text, _passwordController.text, context);
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('An error occurred: $e')),
