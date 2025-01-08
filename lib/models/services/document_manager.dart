@@ -26,13 +26,21 @@ class DocumentManager implements IDocument {
   }
 
   @override
-  Future<void> getDocument(String ID)async {
+  Future<Document?> getDocument(String userID)async {
     try{
-      var docID = await _firestoreService.getDocID(collections().documents, 'id', ID);
-      await _firestoreService.getDocument(collections().documents, docID!);
+      var docID = await _firestoreService.getDocID(collections().documents, 'userID', userID);
+      var doc = await _firestoreService.getDocument(collections().documents, docID!);
+      if (doc != null) {
+        return Document.fromMap(doc);
+      }
+      else{
+        return null;
+      }
     }catch(e){
       debugPrint(e.toString());
+      return null;
     }
+
   }
 
   @override
