@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zad/controllers/volunteer_dashboard_controller.dart';
 import 'package:zad/controllers/Sort_Events_strats.dart';
 import 'package:zad/models/classes/event.dart';
-import 'package:zad/views/widgets/Event_card_template.dart';
+import 'package:zad/views/widgets/eventCard.dart';
 import '../controllers/interfaces/ISort_Events.dart';
 
 class VolunteerDashboardScreen extends StatefulWidget {
@@ -114,12 +114,7 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
               ? ListView.builder(
                   itemCount: _events.length,
                   itemBuilder: (context, index) {
-                    final event = _events[index];
-                    return EventCard(
-                      name: event.name,
-                      location: event.location,
-                      date: event.date,
-                    ).buildCard();
+                    return EventCard(event: _events[index]);
                   },
                 )
               : const Center(child: Text("No events available")),

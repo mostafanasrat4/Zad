@@ -33,7 +33,7 @@ class BeneficiaryCard extends CardTemplate {
   @override
   Widget buildContent() {
     return Text(
-      "goal: $goal",
+      goal,
       style: const TextStyle(fontSize: 16),
     );
   }
@@ -41,7 +41,7 @@ class BeneficiaryCard extends CardTemplate {
   @override
   Widget buildFooter() {
     return Text(
-      "Reached: $reached",
+      '$reached',
       style: const TextStyle(
         fontSize: 14,
         fontStyle: FontStyle.italic,
