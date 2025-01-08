@@ -9,12 +9,12 @@ class UnregisterEventCommand implements Command {
   UnregisterEventCommand(this._manager, this._eventRegistration);
 
   @override
-  void execute() {
+  Future<void> execute() async {
     _manager.unregisterEvent(_eventRegistration);
   }
 
   @override
-  void undo() {
+  Future<void> undo() async {
     _manager.registerEvent(_eventRegistration);
   }
 }
