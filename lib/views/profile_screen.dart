@@ -72,7 +72,7 @@ class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
     super.key,
     required this.fullName,
-    this.imageUrl,
+    required this.imageUrl,
   });
 
   @override
