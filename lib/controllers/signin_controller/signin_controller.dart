@@ -13,11 +13,15 @@ class SignInController{
   final SignIn _signIn = SignIn();
   final UserManager _userManager = UserManager();
 
-  Future<void> signIn(String email, String password, BuildContext context) async {
+  Future<String?> signIn(String email, String password, BuildContext context) async {
 
     try{
       // 1. Sign-in with Firebase Authentication
       firebase_auth.User? firebaseAuthUser = await _signIn.signInWithEmailAndPassword(email, password);
+      if(firebaseAuthUser == null) {
+        return null;
+      }
+      String userId = firebaseAuthUser.uid;
 
       // 2. If signed in successfully, get current user id
       // TODO: Make signInWithEmailAndPassword() return different errors in sign in and handle them here
@@ -25,9 +29,9 @@ class SignInController{
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid email or password')),
         );
-        return;
+        return userId;
       }
-      String userId = firebaseAuthUser.uid;
+
 
       // 3. Fetch current user from Firestore by userId
       User? user = await _userManager.getUserByUserID(userId);
