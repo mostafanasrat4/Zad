@@ -7,6 +7,7 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer
 import 'package:zad/controllers/signin_with_email.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/views/profile_screen.dart';
 
 class SignInController{
   final SignIn _signIn = SignIn();
@@ -52,7 +53,7 @@ class SignInController{
       Widget dashboard = dashboardContext.getDashboard();
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => dashboard),
+        MaterialPageRoute(builder: (context) => /*dashboard*/ProfileScreen()),
             (Route<dynamic> route) => false,
       );
 

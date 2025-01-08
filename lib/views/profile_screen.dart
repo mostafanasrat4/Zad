@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:zad/controllers/signOut.dart';
+import 'package:zad/controllers/profile_controller.dart';
 import 'package:zad/controllers/signout_controller.dart';
+import 'package:zad/models/classes/user.dart';
 
-class ProfileScreen extends StatelessWidget {
-
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  final ProfileController _profileController = ProfileController();
+  late User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    setCurrentUser();
+  }
+
+  Future<void> setCurrentUser() async {
+    User? user = await _profileController.getCurrentUser(context);
+    setState(() {
+      _currentUser = user;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('My Profile'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -19,11 +43,18 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // TODO: Profile Header Card (To be wrapped with proper decorators)
-            ProfileHeader(),
+            ProfileHeader(
+              fullName: _currentUser?.fullName ?? "John Doe",
+              imageUrl: _currentUser?.imageURL ?? "",
+            ),
             const SizedBox(height: 16.0),
 
             // Profile Details
-            ProfileDetails(email: 'mostafanasrat@gmail.com', phoneNo: '01094944737', address: 'Cairo'),
+            ProfileDetails(
+                email: _currentUser?.email ?? "john.doe@example.com",
+                phoneNo: _currentUser?.phoneNo ?? "01012345678",
+                address: 'Cairo'
+            ),
             const SizedBox(height: 16.0),
             // Profile Actions
             ProfileActions(),
@@ -35,8 +66,14 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class ProfileHeader extends StatelessWidget {
+  final String fullName;
+  final String? imageUrl;
 
-  const ProfileHeader({super.key});
+  const ProfileHeader({
+    super.key,
+    required this.fullName,
+    this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +81,13 @@ class ProfileHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 60,
-          backgroundImage: AssetImage('assets/profile_picture.png'), // Replace with your image
+          backgroundImage: (imageUrl != null && imageUrl != '')
+              ? NetworkImage(imageUrl!)
+              : AssetImage('assets/profile_picture.png') as ImageProvider,
         ),
         const SizedBox(height: 8.0),
         Text(
-          'Mostafa Nasrat',
+          fullName,
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold
