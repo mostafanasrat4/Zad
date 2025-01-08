@@ -27,11 +27,13 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
   final CommandInvoker _invoker = CommandInvoker();
 
   List<Event> _events = [];
+  List<String> _registeredEventIDs = [];
   late ISortEvents _currentSortingStrategy;
   String _selectedSorting = "Date";
   String _selectedFilter = "All Events";
   bool _isLoading = true;
 
+  final String _currentUserID = "user_5";
   @override
   void initState() {
     super.initState();
@@ -47,13 +49,21 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
         _events = await _controller.getFutureEvents();
         break;
       case "Registered Events":
-        _events = await _controller.getVolunteerRegisteredEvents();
+        final registeredEvents =
+            await _controller.getVolunteerRegisteredEvents();
+        _events = registeredEvents;
+        _registeredEventIDs =
+            registeredEvents.map((event) => event.id).toList();
         break;
       case "Attended Events":
         _events = await _controller.getVolunteerAttendedEvents();
         break;
       default: // "All Events"
         _events = await _controller.getEvents();
+        final registeredEvents =
+            await _controller.getVolunteerRegisteredEvents();
+        _registeredEventIDs =
+            registeredEvents.map((event) => event.id).toList();
     }
 
     _events = _currentSortingStrategy.sortEvents(_events);
@@ -68,31 +78,37 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
     });
   }
 
-  void _registerForEvent(Event event) {
+  void _registerForEvent(Event event) async {
     final eventRegistration = EventRegisteration(
       event.id,
-      "user_5", // Replace with actual user ID
+      _currentUserID, // Replace with actual user ID
       false,
     );
-    _invoker.executeCommand(
+    await _invoker.executeCommand(
         RegisterEventCommand(_registrationManager, eventRegistration));
-    _loadEvents(_selectedFilter); // Refresh the events
+    setState(() {
+      _registeredEventIDs.add(event.id);
+    });
+    await _loadEvents(_selectedFilter);
   }
 
-  void _unregisterFromEvent(Event event) {
+  void _unregisterFromEvent(Event event) async {
     final eventRegistration = EventRegisteration(
       event.id,
-      'user_5', // Replace with actual user ID
+      _currentUserID,
       false,
     );
-    _invoker.executeCommand(
+    await _invoker.executeCommand(
         UnregisterEventCommand(_registrationManager, eventRegistration));
-    _loadEvents(_selectedFilter); // Refresh the events
+    setState(() {
+      _registeredEventIDs.remove(event.id);
+    });
+    await _loadEvents(_selectedFilter);
   }
 
-  void _undoLastAction() {
-    _invoker.undoLastCommand();
-    _loadEvents(_selectedFilter); // Refresh the events
+  Future<void> _undoLastAction() async {
+    await _invoker.undoLastCommand();
+    await _loadEvents(_selectedFilter);
   }
 
   @override
@@ -150,6 +166,7 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
                   itemCount: _events.length,
                   itemBuilder: (context, index) {
                     final event = _events[index];
+                    final isRegistered = _registeredEventIDs.contains(event.id);
                     return EventCard(
                         name: event.name,
                         location: event.location,
@@ -157,14 +174,16 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
                         footer: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ElevatedButton(
-                              onPressed: () => _registerForEvent(event),
-                              child: const Text("Register"),
-                            ),
-                            ElevatedButton(
-                              onPressed: () => _unregisterFromEvent(event),
-                              child: const Text("Unregister"),
-                            ),
+                            if (isRegistered)
+                              ElevatedButton(
+                                onPressed: () => _unregisterFromEvent(event),
+                                child: const Text("Unregister"),
+                              )
+                            else
+                              ElevatedButton(
+                                onPressed: () => _registerForEvent(event),
+                                child: const Text("Register"),
+                              ),
                           ],
                         )).buildCard();
                   },

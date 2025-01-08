@@ -5,18 +5,25 @@ class Volunteer extends User {
   List<String> skills;
   List<DateTime> availability;
   List<String> preferrences = [];
+  List<String> registeredEvents;
   Volunteer({
     required String id,
     String? fullName,
     String? email,
     String? phoneNo,
     String? imageURL,
-    String? type='volunteer',
+    String? type = 'volunteer',
+    required this.registeredEvents,
     required this.skills,
     required this.availability,
     required this.preferrences,
-  }) : super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
-
+  }) : super(
+            id: id,
+            fullName: fullName,
+            email: email,
+            phoneNo: phoneNo,
+            imageURL: imageURL,
+            type: type);
 
   factory Volunteer.fromMap(Map<String, dynamic> map) {
     return Volunteer(
@@ -26,6 +33,7 @@ class Volunteer extends User {
       phoneNo: map['phoneNo'],
       imageURL: map['imageURL'],
       type: map['type'],
+      registeredEvents: List<String>.from(map['registeredEvents'] ?? []),
       skills: List<String>.from(map['skills'] ?? []),
       availability: List<DateTime>.from(
         (map['availability'] ?? []).map((e) => DateTime.parse(e)),
@@ -33,7 +41,6 @@ class Volunteer extends User {
       preferrences: List<String>.from(map['preferrences'] ?? []),
     );
   }
-
 
   @override
   Map<String, dynamic> toMap() {
@@ -46,8 +53,8 @@ class Volunteer extends User {
       'type': type,
       'skills': skills,
       'availability': availability.map((e) => e.toIso8601String()).toList(),
-      'preferrences': preferrences
+      'preferrences': preferrences,
+      'registeredEvents': registeredEvents,
     };
   }
-
 }
