@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zad/controllers/profile_controller.dart';
 import 'package:zad/controllers/signout_controller.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/views/widgets/profile_header_decorator/profile_header.dart';
+import 'package:zad/views/widgets/profile_header_decorator/profile_header_decorator.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,7 +16,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   final ProfileController _profileController = ProfileController();
-  late User? _currentUser;
+  late User? _currentUser = User(id: '', fullName: '', email: '', phoneNo: '', type: '');
+  ProfileHeader _profileHeader = ConcreteProfileHeader(fullName: 'John Doe', imageUrl: "");
 
   @override
   void initState() {
@@ -26,6 +29,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     User? user = await _profileController.getCurrentUser(context);
     setState(() {
       _currentUser = user;
+      _profileHeader = ConcreteProfileHeader(
+        fullName: _currentUser?.fullName ?? "John Doe",
+        imageUrl: _currentUser?.imageURL ?? ""
+      );
+      if(_currentUser != null){
+        switch(_currentUser?.type){
+          case 'donor':
+            _profileHeader = DonorBadgeDecorator(profileHeader: _profileHeader);
+            break;
+          case 'volunteer':
+            _profileHeader = VolunteerBadgeDecorator(profileHeader: _profileHeader);
+            break;
+          case 'admin':
+            _profileHeader = AdminBadgeDecorator(profileHeader: _profileHeader);
+            break;
+          case 'beneficiary':
+            _profileHeader = BeneficiaryBadgeDecorator(profileHeader: _profileHeader);
+            break;
+        }
+      }
     });
   }
 
@@ -43,10 +66,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // TODO: Profile Header Card (To be wrapped with proper decorators)
-            ProfileHeader(
-              fullName: _currentUser?.fullName ?? "John Doe",
-              imageUrl: _currentUser?.imageURL ?? "",
-            ),
+            // ConcreteProfileHeader(
+            //   fullName: _currentUser?.fullName ?? "John Doe",
+            //   imageUrl: _currentUser?.imageURL ?? "",
+            // ).buildProfileHeader(),
+            _profileHeader.buildProfileHeader(),
             const SizedBox(height: 16.0),
 
             // Profile Details
@@ -65,38 +89,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class ProfileHeader extends StatelessWidget {
-  final String fullName;
-  final String? imageUrl;
-
-  const ProfileHeader({
-    super.key,
-    required this.fullName,
-    required this.imageUrl,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 60,
-          backgroundImage: (imageUrl != null && imageUrl != '')
-              ? NetworkImage(imageUrl!)
-              : AssetImage('assets/profile_picture.png') as ImageProvider,
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          fullName,
-          style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 class ProfileDetails extends StatelessWidget {
   final String email;

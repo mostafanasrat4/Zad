@@ -27,7 +27,8 @@ class DonorBadgeDecorator extends ProfileHeaderDecorator {
           top: 0,
           right: 0,
           child: AnimatedContainer(
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 4),
+            curve: Curves.bounceInOut,
             padding: EdgeInsets.symmetric(
                 horizontal: 8,
                 vertical: 4
