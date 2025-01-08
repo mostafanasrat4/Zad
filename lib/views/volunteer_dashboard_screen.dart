@@ -4,6 +4,11 @@ import 'package:zad/controllers/Sort_Events_strats.dart';
 import 'package:zad/models/classes/event.dart';
 import 'package:zad/views/widgets/Event_card_template.dart';
 import '../controllers/interfaces/ISort_Events.dart';
+import '../models/classes/event_registeration.dart';
+import '../models/classes/registeredEventCommand.dart';
+import '../models/classes/unregisteredEventCommand.dart';
+import '../models/services/CommandInvoker.dart';
+import '../models/services/event_registeration_manager.dart';
 
 class VolunteerDashboardScreen extends StatefulWidget {
   const VolunteerDashboardScreen({super.key});
@@ -17,6 +22,9 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
   final VolunteerDashboardController _controller =
       VolunteerDashboardController();
   final setStrategy _sortStrategy = setStrategy();
+  final EventRegisterationManager _registrationManager =
+      EventRegisterationManager();
+  final CommandInvoker _invoker = CommandInvoker();
 
   List<Event> _events = [];
   late ISortEvents _currentSortingStrategy;
@@ -58,6 +66,33 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
       _currentSortingStrategy = _sortStrategy.switchStrategy(sorting);
       _events = _currentSortingStrategy.sortEvents(_events);
     });
+  }
+
+  void _registerForEvent(Event event) {
+    final eventRegistration = EventRegisteration(
+      event.id,
+      "user_5", // Replace with actual user ID
+      false,
+    );
+    _invoker.executeCommand(
+        RegisterEventCommand(_registrationManager, eventRegistration));
+    _loadEvents(_selectedFilter); // Refresh the events
+  }
+
+  void _unregisterFromEvent(Event event) {
+    final eventRegistration = EventRegisteration(
+      event.id,
+      'user_5', // Replace with actual user ID
+      false,
+    );
+    _invoker.executeCommand(
+        UnregisterEventCommand(_registrationManager, eventRegistration));
+    _loadEvents(_selectedFilter); // Refresh the events
+  }
+
+  void _undoLastAction() {
+    _invoker.undoLastCommand();
+    _loadEvents(_selectedFilter); // Refresh the events
   }
 
   @override
@@ -116,10 +151,22 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
                   itemBuilder: (context, index) {
                     final event = _events[index];
                     return EventCard(
-                      name: event.name,
-                      location: event.location,
-                      date: event.date,
-                    ).buildCard();
+                        name: event.name,
+                        location: event.location,
+                        date: event.date,
+                        footer: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => _registerForEvent(event),
+                              child: const Text("Register"),
+                            ),
+                            ElevatedButton(
+                              onPressed: () => _unregisterFromEvent(event),
+                              child: const Text("Unregister"),
+                            ),
+                          ],
+                        )).buildCard();
                   },
                 )
               : const Center(child: Text("No events available")),

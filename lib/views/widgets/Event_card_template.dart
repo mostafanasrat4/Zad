@@ -7,11 +7,13 @@ class EventCard extends CardTemplate {
   final String name;
   final String location;
   final DateTime date;
+  final Widget? footer;
 
   EventCard({
     required this.name,
     required this.location,
     required this.date,
+    this.footer,
   });
 
   @override
@@ -33,21 +35,29 @@ class EventCard extends CardTemplate {
 
   @override
   Widget buildContent() {
-    return Text(
-      "Location: $location",
-      style: const TextStyle(fontSize: 14),
+    return Column(
+      children: [
+        Text(
+          "Location: $location",
+          style: const TextStyle(fontSize: 14),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          "Date: ${date.toLocal()}",
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.green,
+          ),
+        )
+      ],
     );
   }
 
   @override
   Widget buildFooter() {
-    return Text(
-      "Date: ${date.toLocal()}",
-      style: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.green,
-      ),
-    );
+    return footer ?? const SizedBox(); // Display footer if provided
   }
 }
