@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zad/controllers/signOut.dart';
+import 'package:zad/controllers/signout_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
 
@@ -160,8 +162,9 @@ class ProfileDetails extends StatelessWidget {
 }
 
 class ProfileActions extends StatelessWidget {
+  final SignOutController _signOutController = SignOutController();
 
-  const ProfileActions({super.key});
+  ProfileActions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +180,7 @@ class ProfileActions extends StatelessWidget {
         ),
         ElevatedButton.icon(
           onPressed: () {
-            // TODO: perform logout using logout controller
+            _signOutController.signOut(context);
           },
           icon: Icon(Icons.logout),
           label: Text('Logout'),

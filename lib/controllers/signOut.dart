@@ -6,11 +6,13 @@ class SignOut{
   final FirebaseAuth authInstance = FirebaseAuthInstance().firebaseAuth;
 
   // Sign Out Method
-  Future<void> signOut() async {
+  Future<bool> signOut() async {
     try {
       await authInstance.signOut();
+      return true;
     }catch(e){
-      debugPrint(e.toString());
+      debugPrint('Error in signing out: ${e.toString()}');
+      return false;
     }
   }
 
