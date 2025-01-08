@@ -1,20 +1,23 @@
+import 'package:zad/models/classes/approval_context_state.dart';
+import 'package:zad/models/classes/approved_state.dart';
 import 'package:zad/models/classes/document.dart';
-
+import 'package:zad/models/classes/rejected_state.dart';
 import 'user.dart';
 
 class Beneficiary extends User {
   double donationNeeded;
   double donationReceived;
-  String? status = 'pending';
+  ApprovalContext approvalContext;
+
   String? reason;
   String? date;
   String? location;
   String? requiredDocumentsID;
 
+  // Constructor for Beneficiary
   Beneficiary({
     required this.donationNeeded,
     required this.donationReceived,
-    this.status,
     this.reason,
     this.date,
     this.location,
@@ -23,15 +26,16 @@ class Beneficiary extends User {
     String? email,
     String? phoneNo,
     String? imageURL,
-    String? type='beneficiary',
+    String? type = 'beneficiary',
     required String id,
-  }) : super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
+  })  : approvalContext = ApprovalContext(),  // Initialize the state context
+        super(id: id, fullName: fullName, email: email, phoneNo: phoneNo, imageURL: imageURL, type: type);
+
 
   factory Beneficiary.fromMap(Map<String, dynamic> map) {
-    return Beneficiary(
+    var beneficiary = Beneficiary(
       donationNeeded: map['donationNeeded'] ?? 0.0,
       donationReceived: map['donationReceived'] ?? 0.0,
-      status: map['status'],
       reason: map['reason'],
       date: map['date'],
       location: map['location'],
@@ -43,6 +47,16 @@ class Beneficiary extends User {
       type: map['type'],
       id: map['id'] ?? '',
     );
+
+    if (map['status'] == 'approved') {
+      beneficiary.approvalContext.setState(beneficiary.approvalContext.approvedState);
+    } else if (map['status'] == 'rejected') {
+      beneficiary.approvalContext.setState(beneficiary.approvalContext.rejectedState);
+    } else {
+      beneficiary.approvalContext.setState(beneficiary.approvalContext.pendingState);
+    }
+
+    return beneficiary;
   }
 
   @override
@@ -50,7 +64,11 @@ class Beneficiary extends User {
     return {
       'donationNeeded': donationNeeded,
       'donationReceived': donationReceived,
-      'status': status,
+      'status': approvalContext.currentState is ApprovedState
+          ? 'approved'
+          : approvalContext.currentState is RejectedState
+          ? 'rejected'
+          : 'pending',
       'reason': reason,
       'date': date,
       'location': location,
