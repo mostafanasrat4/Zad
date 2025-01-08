@@ -6,10 +6,11 @@ import 'dart:typed_data';
 
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
+import 'package:zad/controllers/interfaces/I_image_adapter.dart';
 
-class ImageAdapter {
+class ImageAdapter implements IImageAdapter{
   final ImagePicker _picker = ImagePicker();
-
+@override
   /// Picks an image from the gallery, compresses it, and converts it to a Base64 string
   Future<String?> pickAndCompressImageToString() async {
     var selectedImage = await _picker.pickImage(source: ImageSource.gallery);
@@ -40,8 +41,8 @@ class ImageAdapter {
     }
     return null;
   }
-
   /// Converts a Base64 string to an image widget display with memory image
+  @override
   Uint8List? stringToImage(String base64String) {
     try {
 
@@ -54,4 +55,7 @@ class ImageAdapter {
       return null;
     }
   }
+
+
+
 }
