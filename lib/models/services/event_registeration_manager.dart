@@ -8,7 +8,6 @@ import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/interfaces/IEventRegisteration.dart';
 import 'package:zad/models/services/firebase_services.dart';
 
-import '../classes/volunteer.dart';
 
 class EventRegisterationManager implements IEventRegisteration {
   final FirestoreService _firestoreService = FirestoreService();
@@ -28,7 +27,7 @@ class EventRegisterationManager implements IEventRegisteration {
     try {
       var eventAttendees = await _firestoreService.getListby2Attributes(
           collections().eventRegisterations,
-          'eventID',
+          'EventID',
           eventID,
           'attended',
           true as String);
@@ -49,7 +48,7 @@ class EventRegisterationManager implements IEventRegisteration {
   Future<List<User>> getEventRegisterations(String eventID) async {
     try {
       var eventRegisterations = await _firestoreService.getList(
-          collections().eventRegisterations, 'eventID', eventID);
+          collections().eventRegisterations, 'EventID', eventID);
       List<User> eventRegisteredUsers = [];
       for (var eventRegisteration in eventRegisterations) {
         var eventAttendeeUser = await _firestoreService.getDocumentByAttribute(
@@ -75,7 +74,7 @@ class EventRegisterationManager implements IEventRegisteration {
       List<Event> registeredEvents = [];
       for (var registeredEventMap in registeredEventsMaps) {
         var registeredEvent = await _firestoreService.getDocumentByAttribute(
-            collections().events, 'id', registeredEventMap['eventID']);
+            collections().events, 'id', registeredEventMap['EventID']);
         registeredEvents.add(Event.fromMap(registeredEvent!));
       }
       return registeredEvents;
@@ -88,10 +87,12 @@ class EventRegisterationManager implements IEventRegisteration {
   @override
   Future<List<Event>> getUserRegisterations(String userID) async {
     try {
-      var registeredEventsMaps = await _firestoreService.getList(collections().eventRegisterations, 'userID', userID);
+      var registeredEventsMaps = await _firestoreService.getList(
+          collections().eventRegisterations, 'userID', userID);
       List<Event> registeredEvents = [];
       for (var registeredEventMap in registeredEventsMaps) {
-        var registeredEvent = await _firestoreService.getDocumentByAttribute(collections().events, 'id', registeredEventMap['eventID']);
+        var registeredEvent = await _firestoreService.getDocumentByAttribute(
+            collections().events, 'id', registeredEventMap['EventID']);
         registeredEvents.add(Event.fromMap(registeredEvent!));
       }
       return registeredEvents;
@@ -118,7 +119,7 @@ class EventRegisterationManager implements IEventRegisteration {
     try {
       await _firestoreService.deleteDocWith2Attributes(
           collections().eventRegisterations,
-          'eventID',
+          'EventID',
           myEventRegisteration.EventID,
           'userID',
           myEventRegisteration.userID);
@@ -133,28 +134,11 @@ class EventRegisterationManager implements IEventRegisteration {
     try {
       await _firestoreService.deleteDocWith2Attributes(
         collections().eventRegisterations,
-        'eventID',
+        'EventID',
         myEventRegisteration.EventID,
         'userID',
         myEventRegisteration.userID,
       );
-      var volunteer = await _firestoreService.getDocumentByAttribute(
-        collections().volunteers,
-        'id',
-        myEventRegisteration.userID,
-      );
-
-      if (volunteer != null) {
-        var updatedVolunteer = Volunteer.fromMap(volunteer);
-        updatedVolunteer.registeredEvents
-            .removeWhere((id) => id == myEventRegisteration.EventID);
-
-        await _firestoreService.updateData(
-          collections().volunteers,
-          volunteer['docID'],
-          updatedVolunteer.toMap(),
-        );
-      }
     } catch (e) {
       // TODO: Remove debug Prints
       debugPrint(e.toString());

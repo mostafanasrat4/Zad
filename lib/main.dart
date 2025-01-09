@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
       title: 'Zad',
       theme: context.watch<theme>().dark ? ThemeData.dark() : ThemeData.light(),
       debugShowCheckedModeBanner: false,
-      home: const AuthWrapper(),
+      // home: const AuthWrapper(),
       // home: DonorDashboardScreen(),
-      // home: VolunteerDashboardScreen(),
+      home: VolunteerDashboardScreen(),
       // home: ProfileScreen(),
     );
   }

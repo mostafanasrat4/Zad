@@ -3,6 +3,7 @@ import 'package:zad/models/services/event_manager.dart';
 import 'package:zad/models/services/event_registeration_manager.dart';
 import 'package:zad/models/services/local_user_data.dart';
 
+
 class VolunteerDashboardController {
   Future<List<Event>> getFutureEvents() async {
     var events = await EventManager().getAllEvents();
@@ -26,6 +27,11 @@ class VolunteerDashboardController {
     return events;
   }
 
+  // get current user registered events "just for testing"
+  Future<List<Event>> getVolunteerRegisteredEvents2(var user) async {
+    return EventRegisterationManager().getUserRegisterations(user);
+  }
+
   Future<List<Event>> getVolunteerAttendedEvents() async {
     var user = await LocalUserData().loadUserData();
     if (user == null) return [];
@@ -42,6 +48,10 @@ class VolunteerDashboardController {
     var registeredEvents =
         await EventRegisterationManager().getUserRegisterations(userID);
 
-    return registeredEvents; //registeredEvents.map((event) => event.id).toList();
+    return registeredEvents;
+  }
+
+  EventRegisterationManager getRegistrationManager() {
+    return EventRegisterationManager();
   }
 }
