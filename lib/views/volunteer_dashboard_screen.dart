@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:zad/controllers/volunteer_dashboard_controller.dart';
 import 'package:zad/controllers/Sort_Events_strats.dart';
 import 'package:zad/models/classes/event.dart';
+import 'package:zad/models/services/event_list.dart';
 import 'package:zad/views/widgets/Event_card_template.dart';
 import '../controllers/interfaces/ISort_Events.dart';
 import '../models/classes/event_registeration.dart';
-
 import '../models/services/CommandInvoker.dart';
 import 'package:zad/models/classes/registeredEventCommand.dart';
 import 'package:zad/models/classes/unregisteredEventCommand.dart';
@@ -23,7 +23,7 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
       VolunteerDashboardController();
   final setStrategy _sortStrategy = setStrategy();
   final CommandInvoker _invoker = CommandInvoker();
-
+  EventList eventList = EventList([]);
   List<Event> _events = [];
   late ISortEvents _currentSortingStrategy;
   String _selectedSorting = "Date";
@@ -44,15 +44,31 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
     switch (filter) {
       case "Future Events":
         _events = await _controller.getFutureEvents();
+        setState(() {
+          eventList = EventList(_events);
+          _isLoading = false;
+        });
         break;
       case "Registered Events":
         _events = await _controller.getVolunteerRegisteredEvents2(userid);
+        setState(() {
+          eventList = EventList(_events);
+          _isLoading = false;
+        });
         break;
       case "Attended Events":
         _events = await _controller.getVolunteerAttendedEvents();
+        setState(() {
+          eventList = EventList(_events);
+          _isLoading = false;
+        });
         break;
       default: // "All Events"
-        _events = await _controller.getEvents();
+        eventList = (await _controller.getEvents()) as EventList;
+        setState(() {
+          eventList = EventList(_events);
+          _isLoading = false;
+        });
     }
 
     _events = _currentSortingStrategy.sortEvents(_events);
@@ -91,6 +107,7 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final iterator = eventList.createIterator();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Volunteer Dashboard"),
@@ -143,14 +160,14 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : _events.isNotEmpty
+          : iterator.hasNext()
               ? ListView.builder(
-                  itemCount: _events.length,
+                  itemCount: eventList.events.length,
                   itemBuilder: (context, index) {
-                    final event = _events[index];
+                    final event = iterator.next();
 
                     return EventCard(
-                        name: event.name,
+                        name: event!.name,
                         location: event.location,
                         date: event.date,
                         footer: Row(
