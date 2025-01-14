@@ -5,6 +5,7 @@ import 'package:zad/controllers/donor_dashboard_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
 import 'package:zad/views/Beneficiary_screen.dart';
 import 'package:zad/views/widgets/beneificary_card_template.dart';
+
 import '../models/services/beneficiary_list.dart';
 
 class DonorDashboardScreen extends StatefulWidget {
@@ -79,12 +80,12 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
                         final beneficiary = iterator.next();
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeneficiaryScreen( ben: beneficiary)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeneficiaryScreen(ben: beneficiary)));
                           },
                           child: BeneficiaryCard(
                             name: beneficiary!.fullName ?? "No Name",
-                            goal: beneficiary.donationNeeded.toString() ?? "1000",
-                            reached: beneficiary.donationReceived.toString() ?? "500",
+                            goal: beneficiary.donationNeeded.toString() ?? "Undefined",
+                            reached: beneficiary.donationReceived.toString() ?? "Undefined",
                           ).buildCard()
                         );
                       },

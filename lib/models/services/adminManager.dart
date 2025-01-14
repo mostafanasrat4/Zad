@@ -1,8 +1,7 @@
 import 'package:zad/models/classes/admin.dart';
-import 'package:zad/models/interfaces/IUserManager.dart';
-
-import 'package:zad/models/services/firebase_services.dart';
 import 'package:zad/models/classes/collections.dart';
+import 'package:zad/models/interfaces/IUserManager.dart';
+import 'package:zad/models/services/firebase_services.dart';
 
 
 class AdminManager implements IUserManager {

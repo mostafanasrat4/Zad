@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:zad/controllers/volunteer_dashboard_controller.dart';
 import 'package:zad/controllers/Sort_Events_strats.dart';
+import 'package:zad/controllers/volunteer_dashboard_controller.dart';
 import 'package:zad/models/classes/event.dart';
+import 'package:zad/models/classes/registeredEventCommand.dart';
+import 'package:zad/models/classes/unregisteredEventCommand.dart';
 import 'package:zad/models/services/event_list.dart';
 import 'package:zad/views/widgets/Event_card_template.dart';
+import 'package:zad/views/widgets/Event_details_screen.dart';
+
 import '../controllers/interfaces/ISort_Events.dart';
 import '../models/classes/event_registeration.dart';
 import '../models/services/CommandInvoker.dart';
-import 'package:zad/models/classes/registeredEventCommand.dart';
-import 'package:zad/models/classes/unregisteredEventCommand.dart';
 
 class VolunteerDashboardScreen extends StatefulWidget {
   const VolunteerDashboardScreen({super.key});
@@ -166,24 +168,29 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
                   itemBuilder: (context, index) {
                     final event = iterator.next();
 
-                    return EventCard(
-                        name: event!.name,
-                        location: event.location,
-                        date: event.date,
-                        footer: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () => _registerForEvent(event),
-                              child: const Text("Register"),
-                            ),
-                            const SizedBox(width: 8),
-                            ElevatedButton(
-                              onPressed: () => _unregisterFromEvent(event),
-                              child: const Text("Unregister"),
-                            ),
-                          ],
-                        )).buildCard();
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EventDetailsScreen(myEvent: event!)));
+                      },
+                      child: EventCard(
+                          name: event!.name,
+                          location: event.location,
+                          date: event.date,
+                          footer: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () => _registerForEvent(event),
+                                child: const Text("Register"),
+                              ),
+                              const SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: () => _unregisterFromEvent(event),
+                                child: const Text("Unregister"),
+                              ),
+                            ],
+                          )).buildCard(),
+                    );
                   },
                 )
               : const Center(child: Text("No events available")),

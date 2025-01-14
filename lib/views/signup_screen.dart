@@ -3,7 +3,6 @@ import 'package:uuid/uuid.dart';
 import 'package:zad/controllers/signup_facade.dart';
 import 'package:zad/models/classes/user.dart';
 import 'package:zad/views/signin_screen.dart';
-import 'package:zad/controllers/sign_up_with_email.dart';
 
 class SignUpScreen extends StatelessWidget {
 

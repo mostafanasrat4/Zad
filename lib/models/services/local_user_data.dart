@@ -1,5 +1,6 @@
-import 'package:localstorage/localstorage.dart';
 import 'dart:convert';
+
+import 'package:localstorage/localstorage.dart';
 import 'package:zad/models/classes/user.dart';
 
 class LocalUserData {

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
-import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/models/services/user_manager.dart';
 
 class ProfileController{
   final UserManager _userManager = UserManager();

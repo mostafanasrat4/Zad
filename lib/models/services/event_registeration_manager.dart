@@ -1,8 +1,8 @@
 // TODO: Remove debug Prints
 
 import 'package:flutter/material.dart';
-import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/collections.dart';
+import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/event_registeration.dart';
 import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/interfaces/IEventRegisteration.dart';

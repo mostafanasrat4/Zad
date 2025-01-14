@@ -5,10 +5,9 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/admin_das
 import 'package:zad/controllers/signin_controller/dashboard_strategies/donor_dashboard_strategy.dart';
 import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer_dashboard_strategy.dart';
 import 'package:zad/controllers/signin_with_email.dart';
-import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/views/donor_screens/donor_navigation_bar.dart';
-import 'package:zad/views/profile_screen.dart';
 
 import '../../models/services/local_user_data.dart';
 

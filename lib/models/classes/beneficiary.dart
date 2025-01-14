@@ -1,7 +1,7 @@
 import 'package:zad/models/classes/approval_context_state.dart';
 import 'package:zad/models/classes/approved_state.dart';
-import 'package:zad/models/classes/document.dart';
 import 'package:zad/models/classes/rejected_state.dart';
+
 import 'user.dart';
 
 class Beneficiary extends User {

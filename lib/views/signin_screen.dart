@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zad/controllers/signin_controller/signin_controller.dart';
-import 'package:zad/controllers/signin_with_email.dart';
-import 'package:zad/models/classes/user.dart';
-import 'package:zad/models/services/local_user_data.dart';
-import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/views/signup_screen.dart';
 // TODO: based on user type navigate replacement to a different screen, save user id in shared preferences and use it across the app
 class SignInScreen extends StatelessWidget {

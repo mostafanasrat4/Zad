@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/user.dart';
-
 import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 

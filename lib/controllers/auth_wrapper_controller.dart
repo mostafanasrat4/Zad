@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../views/signin_screen.dart';
 
 class AuthWrapper extends StatelessWidget {

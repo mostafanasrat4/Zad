@@ -1,7 +1,8 @@
+import 'package:zad/models/interfaces/Iterator.dart';
+import 'package:zad/models/services/event_iterator.dart';
+
 import '../classes/event.dart';
 import '../interfaces/event_collection.dart';
-import 'package:zad/models/services/event_iterator.dart';
-import 'package:zad/models/interfaces/Iterator.dart';
 class EventList implements EventCollection
 {
   final List<Event> _events;

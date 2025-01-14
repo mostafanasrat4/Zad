@@ -1,5 +1,6 @@
 import 'package:zad/models/classes/event_registeration.dart';
 import 'package:zad/models/services/event_registeration_manager.dart';
+
 import '../interfaces/ICommand.dart';
 
 class RegisterEventCommand implements Command {

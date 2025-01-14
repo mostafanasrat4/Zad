@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/collections.dart';
+import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/classes/event_factory_selector.dart';
 import 'package:zad/models/interfaces/IEventManager.dart';
 import 'package:zad/models/services/firebase_services.dart';

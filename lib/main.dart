@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:zad/controllers/auth_wrapper_controller.dart';
-import 'package:zad/views/donor_dashboard_screen.dart';
-import 'package:zad/views/profile_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:zad/views/volunteer_dashboard_screen.dart';
 import 'controllers/providers/theme_controller.dart';
 import 'firebase_options.dart';
-import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

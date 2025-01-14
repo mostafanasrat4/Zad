@@ -1,7 +1,7 @@
 import 'package:zad/models/classes/beneficiary.dart';
+import 'package:zad/models/interfaces/Iterator.dart';
 import 'package:zad/models/interfaces/beneficiary_collection.dart';
 import 'package:zad/models/services/beneficiary_iterator.dart';
-import 'package:zad/models/interfaces/Iterator.dart';
 
 class BeneficiaryList implements BeneficiaryCollection
 {

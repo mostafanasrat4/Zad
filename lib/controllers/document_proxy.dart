@@ -1,7 +1,6 @@
 // protective proxy to be finished later
 import 'dart:typed_data';
 
-
 import 'package:zad/controllers/Image_adapter.dart';
 import 'package:zad/controllers/interfaces/IDocument.dart';
 import 'package:zad/models/classes/document.dart';

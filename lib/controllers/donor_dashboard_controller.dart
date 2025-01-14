@@ -1,7 +1,7 @@
-import 'package:zad/models/classes/user.dart';
 import 'package:flutter/material.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/donation.dart';
+import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/services/beneficiaryManager.dart';
 import 'package:zad/models/services/donation_manager.dart';
 import 'package:zad/models/services/local_user_data.dart';

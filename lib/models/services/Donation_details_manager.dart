@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/donation_details.dart';
 import 'package:zad/models/interfaces/IDonation_details.dart';
-import 'package:zad/models/services/donation_manager.dart';
 import 'package:zad/models/services/firebase_services.dart';
 
 
