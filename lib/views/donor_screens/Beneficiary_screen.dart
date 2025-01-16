@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 
 class BeneficiaryScreen extends StatelessWidget {
-  Beneficiary ben;
+  final Beneficiary ben;
   BeneficiaryScreen({super.key, required this.ben});
 
   @override

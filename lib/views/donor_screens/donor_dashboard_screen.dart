@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zad/controllers/donor_dashboard_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
-import 'package:zad/views/Beneficiary_screen.dart';
+import 'package:zad/views/donor_screens/Beneficiary_screen.dart';
 import 'package:zad/views/widgets/beneificary_card_template.dart';
 
-import '../models/services/beneficiary_list.dart';
+import '../../models/services/beneficiary_list.dart';
 
 class DonorDashboardScreen extends StatefulWidget {
   const DonorDashboardScreen({super.key});

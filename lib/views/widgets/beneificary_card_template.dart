@@ -1,6 +1,6 @@
 //ToDo: use that card instead of the other one
 import 'package:flutter/material.dart';
-import 'package:zad/views/card_template.dart';
+import 'package:zad/views/widgets/card_template.dart';
 
 class BeneficiaryCard extends CardTemplate {
   final String name;

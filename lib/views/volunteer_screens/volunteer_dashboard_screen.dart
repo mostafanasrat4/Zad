@@ -6,11 +6,11 @@ import 'package:zad/models/classes/registeredEventCommand.dart';
 import 'package:zad/models/classes/unregisteredEventCommand.dart';
 import 'package:zad/models/services/event_list.dart';
 import 'package:zad/views/widgets/Event_card_template.dart';
-import 'package:zad/views/widgets/Event_details_screen.dart';
+import 'package:zad/views/volunteer_screens/Event_details_screen.dart';
 
-import '../controllers/interfaces/ISort_Events.dart';
-import '../models/classes/event_registeration.dart';
-import '../models/services/CommandInvoker.dart';
+import '../../controllers/interfaces/ISort_Events.dart';
+import '../../models/classes/event_registeration.dart';
+import '../../models/services/CommandInvoker.dart';
 
 class VolunteerDashboardScreen extends StatefulWidget {
   const VolunteerDashboardScreen({super.key});
