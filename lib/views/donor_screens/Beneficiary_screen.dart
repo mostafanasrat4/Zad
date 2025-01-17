@@ -4,7 +4,7 @@ import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/views/widgets/donation_popup.dart';
 
 class BeneficiaryScreen extends StatelessWidget {
-  Beneficiary ben;
+  final Beneficiary ben;
   BeneficiaryScreen({super.key, required this.ben});
 
   @override
