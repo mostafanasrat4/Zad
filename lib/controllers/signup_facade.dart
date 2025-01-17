@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:zad/controllers/sign_up_with_email.dart';
+import 'package:zad/models/classes/donor.dart';
 import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/adminManager.dart';
 import 'package:zad/models/services/beneficiaryManager.dart';
@@ -55,7 +56,8 @@ class SignUpController {
       else {
         _manager = DonorManager();
       }
-      await _manager.createUser(myUser);
+      Donor myDonor = Donor(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL);
+      await _manager.createUser(myDonor);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Signed up successfully!')),
       );
