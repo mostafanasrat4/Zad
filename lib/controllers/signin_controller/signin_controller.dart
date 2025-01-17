@@ -66,9 +66,9 @@ class SignInController{
       Widget dashboard = dashboardContext.getDashboard();
       Navigator.pushAndRemoveUntil(
         context,
-        //MaterialPageRoute(builder: (context) => dashboard),
+        MaterialPageRoute(builder: (context) => dashboard),
         // MaterialPageRoute(builder: (context) => ProfileScreen()),
-        MaterialPageRoute(builder: (context) => DonorNavigationManager()),
+        // MaterialPageRoute(builder: (context) => DonorNavigationManager()),
         (Route<dynamic> route) => false,
       );
 

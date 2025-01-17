@@ -9,14 +9,14 @@ import 'package:zad/views/donor_screens/my_donations_screen.dart';
 import 'package:zad/views/notifications_screen.dart';
 import 'package:zad/views/profile_screen.dart';
 
-class DonorNavigationManager extends StatefulWidget {
-  const DonorNavigationManager({super.key});
+class AdminNavigationManager extends StatefulWidget {
+  const AdminNavigationManager({super.key});
 
   @override
-  State<DonorNavigationManager> createState() => _DonorNavigationManagerState();
+  State<AdminNavigationManager> createState() => _AdminNavigationManagerState();
 }
 
-class _DonorNavigationManagerState extends State<DonorNavigationManager> {
+class _AdminNavigationManagerState extends State<AdminNavigationManager> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -40,9 +40,10 @@ class _DonorNavigationManagerState extends State<DonorNavigationManager> {
         children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: context.watch<theme>().dark?
-        CupertinoColors.darkBackgroundGray
-            : CupertinoColors.extraLightBackgroundGray,
+        // backgroundColor: context.watch<theme>().dark?
+        // CupertinoColors.darkBackgroundGray
+        //     : CupertinoColors.extraLightBackgroundGray,
+        backgroundColor: Colors.lightBlue,
         currentIndex: _currentIndex,
         onTap: _onTap,
         items: const [
