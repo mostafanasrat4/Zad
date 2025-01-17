@@ -1,27 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:zad/controllers/Image_adapter.dart';
 import 'package:zad/controllers/signup_facade.dart';
 import 'package:zad/models/classes/user.dart';
 import 'package:zad/views/signin_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
 
   SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
   final TextEditingController _phoneNoController = TextEditingController();
+
   final SignUpController _signUpController = SignUpController();
+
   final _uuid = Uuid();
 
   @override
   Widget build(BuildContext context) {
+    String? selectedValue;
+    var imgURL;
+    var imagee;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
+            GestureDetector(
+              child: CircleAvatar(
+                radius: 50.0,
+                backgroundColor: Colors.black,
+                backgroundImage: imgURL == null ? null : MemoryImage(imagee),
+              ),
+              onTap: (){
+                imgURL = ImageAdapter().pickAndCompressImageToString();
+                imagee = ImageAdapter().stringToImage(imgURL);
+              },
+            ),
+            DropdownMenu<String>(
+              initialSelection: selectedValue,
+              onSelected: (value) {
+                // Update the state when a value is selected
+                setState(() {
+                  selectedValue = value;
+                });
+                print('Selected value: $value');
+              },
+              dropdownMenuEntries: [
+                DropdownMenuEntry(value: 'volunteer', label: 'Volunteer'),
+                DropdownMenuEntry(value: 'donor', label: 'Donor'),
+                DropdownMenuEntry(value: 'admin', label: 'Admin'),
+                DropdownMenuEntry(value: 'beneficiary', label: 'Beneficiary'),
+              ],
+            ),
             // "Welcome!" Container
+
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height/4.0,
@@ -101,14 +143,13 @@ class SignUpScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async{
                     try {
-                      // TODO: Replace this line with a call to a method from the controller (Don't call AuthService directly)
-                      //SignUp().signUpWithEmailAndPassword(emailController.text, passwordController.text);
                       User user = User(
-                          id: _uuid.v4(),
+                          id: '',
                           fullName: _nameController.text,
                           email: _emailController.text,
                           phoneNo: _phoneNoController.text,
-                          type: 'donor'
+                          type: selectedValue,
+                          imageURL: imgURL
                       );
                       _signUpController.signUpFacade(user, _passwordController.text, context);
                     } catch (e) {
