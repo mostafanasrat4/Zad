@@ -1,4 +1,5 @@
 import 'package:zad/models/classes/event.dart';
+import 'package:zad/models/services/beneficiaryManager.dart';
 import 'package:zad/models/services/event_manager.dart';
 
 class AdminController {
@@ -43,5 +44,8 @@ class AdminController {
   // Fetch All Events
   Future<List<Event>> getAllEvents() async {
     return await _eventManager.getAllEvents();
+  }
+  Future<void> getPendingBeneificaries()async{
+    await BeneficiaryManager().getPendingBeneficiaries();
   }
 }

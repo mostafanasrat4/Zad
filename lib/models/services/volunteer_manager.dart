@@ -12,7 +12,7 @@ class VolunteerManager implements IUserManager {
 
   @override
   Future<void> createUser(myVolunteer) async{
-    if(myVolunteer is Volunteer){
+    if(myVolunteer is !Volunteer){
       throw ArgumentError('Volunteer must be of type Volunteer');
       return;
     }

@@ -26,7 +26,7 @@ class AdminManager implements IUserManager {
 
   @override
   Future<void> createUser(myUser) async{
-    if(myUser is Admin) {
+    if(myUser is !Admin) {
       throw ArgumentError('User must be of type Admin');
       return;
     }
@@ -40,7 +40,7 @@ class AdminManager implements IUserManager {
 
   @override
   Future<void> deleteUser(myUser) async{
-    if(myUser is Admin) {
+    if(myUser is !Admin) {
       throw ArgumentError('User must be of type Admin');
       return;
     }
@@ -55,7 +55,7 @@ class AdminManager implements IUserManager {
 
   @override
   Future<void> editUser(myAdmin) async{
-    if(myAdmin is Admin) {
+    if(myAdmin is !Admin) {
       throw ArgumentError('User must be of type Admin');
       return;
     }

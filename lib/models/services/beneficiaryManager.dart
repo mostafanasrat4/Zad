@@ -21,8 +21,8 @@ class BeneficiaryManager implements IUserManager{
   }
 
   @override
-  Future<void> createUser( myBeneficiary) async{
-    if(myBeneficiary is Beneficiary) {
+  Future<void> createUser(myBeneficiary) async{
+    if(myBeneficiary is !Beneficiary) {
       throw ArgumentError('User must be of type Beneficiary');
       return;
     }
@@ -45,7 +45,7 @@ class BeneficiaryManager implements IUserManager{
 
   @override
   Future<void> editUser(myBeneficiary) async{
-    if(myBeneficiary is Beneficiary) {
+    if(myBeneficiary is !Beneficiary) {
       throw ArgumentError('User must be of type Beneficiary');
       return;
     }
@@ -102,9 +102,9 @@ class BeneficiaryManager implements IUserManager{
     }
   }
 
-  Future<List<Beneficiary>> getDisapprovedBeneficiaries(String status) async{
+  Future<List<Beneficiary>> getDisapprovedBeneficiaries() async{
     try{
-      var result = await _firestoreService.getList(collections().beneficiary, status, 'disapproved');
+      var result = await _firestoreService.getList(collections().beneficiary, 'status', 'disapproved');
       List<Beneficiary> beneficiaries = [];
       for(var item in result){
         beneficiaries.add(Beneficiary.fromMap(item));
@@ -117,9 +117,9 @@ class BeneficiaryManager implements IUserManager{
     }
   }
 
-  Future<List<Beneficiary>> getPendingBeneficiaries(String status) async {
+  Future<List<Beneficiary>> getPendingBeneficiaries() async {
     try{
-      var result = await _firestoreService.getList(collections().beneficiary, status, 'pending');
+      var result = await _firestoreService.getList(collections().beneficiary, 'status', 'pending');
       List<Beneficiary> beneficiaries = [];
       for(var item in result){
         beneficiaries.add(Beneficiary.fromMap(item));
