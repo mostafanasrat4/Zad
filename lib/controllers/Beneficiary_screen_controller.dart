@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/v1.dart';
 import 'package:zad/models/classes/donation.dart';
 import 'package:zad/models/classes/donation_details.dart';
 import 'package:zad/models/classes/user.dart';
@@ -11,7 +10,8 @@ import 'package:zad/models/services/local_user_data.dart';
 class BeneficiaryScreenController {
   TextEditingController _amountController = TextEditingController();
   get amountController => _amountController;
-   Future<bool> isDonor() async{
+
+   isDonor() async{
     var user = await LocalUserData().loadUserData();
     User myUser = User.fromMap(user as Map<String, dynamic>);
     if (user == null) return false;
