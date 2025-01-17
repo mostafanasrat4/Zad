@@ -20,20 +20,32 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   AdminDashboardController _adminDashboardController = AdminDashboardController();
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
     updateMetrics();
   }
 
   Future<void> updateMetrics() async {
-    setState(() async {
-      totalFundsRaised = (await _adminDashboardController.getTotalFundsRaised())!;
-      totalFundsRequired = (await _adminDashboardController.getTotalFundsRequired())!;
-      totalBeneficiaries = (await _adminDashboardController.getTotalNoOfBeneficiaries())!;
-      totalEvents = (await _adminDashboardController.getTotalNoOfEvents())!;
-      totalVolunteers = (await _adminDashboardController.getTotalNoOfVolunteers())!;
+    // Fetch the values asynchronously
+    double fundsRaised = await _adminDashboardController.getTotalFundsRaised() ?? 0.0;
+    double fundsRequired = await _adminDashboardController.getTotalFundsRequired() ?? 0.0;
+    int beneficiaries = await _adminDashboardController.getTotalNoOfBeneficiaries() ?? 0;
+    int events = await _adminDashboardController.getTotalNoOfEvents() ?? 0;
+    int volunteers = await _adminDashboardController.getTotalNoOfVolunteers() ?? 0;
+    // TODO: To be implemented
+    //int donors = await _adminDashboardController.getTotalNoOfDonors() ?? 0;
+    //int donations = await _adminDashboardController.getTotalNoOfDonations() ?? 0;
+
+    // Update the state after fetching all values
+    setState(() {
+      totalFundsRaised = fundsRaised;
+      totalFundsRequired = fundsRequired;
+      totalBeneficiaries = beneficiaries;
+      totalEvents = events;
+      totalVolunteers = volunteers;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +110,8 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         onPressed: () async {
           await updateMetrics();
         },
-        child: const Icon(Icons.refresh),
         backgroundColor: Colors.teal,
+        child: const Icon(Icons.refresh),
       ),
     );
   }
