@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:zad/controllers/donor_dashboard_controller.dart';
+import 'package:zad/controllers/past_donations_screen_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
 import 'package:zad/models/classes/donation.dart';
+import 'package:zad/models/classes/donation_details.dart';
 
 
 class MyDonationsScreen extends StatefulWidget {
@@ -64,8 +66,26 @@ class _MyDonationsScreenState extends State<MyDonationsScreen> {
           itemCount: DonationsList.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: () {
-                //ToDo Navigate to Donations details or a popUP
+              onTap: () async{
+                DonationDetails? myDetails = await PastDonationsScreenController().getDetails(DonationsList[index].id);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("Donation Details"),
+                    content: myDetails == null ? Text("No details") :
+                    Column(children: [
+                      Text(myDetails.date.toString()),
+                      Text(myDetails.status.toString()),
+                      Text(myDetails.paymentMethod.toString()),
+                    ],),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text("Close"),
+                      ),
+                    ],
+                  ),
+                );
               },
               child: ListTile(
                 title: Text("Donation amount ${DonationsList[index].amount}"),

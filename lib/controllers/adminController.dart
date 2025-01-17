@@ -62,4 +62,5 @@ class AdminController {
     FcmServices().sendFCMMessage('I am sorry', 'You just got disapproved, check your documents', ben.id);
     await BeneficiaryManager().disapproveBeneficiary(ben.id, ben.approvalContext.rejectedState.toString());
   }
+
 }

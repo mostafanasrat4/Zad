@@ -7,6 +7,23 @@ class EventDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(myEvent.name),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text(myEvent.name),
+            Text(myEvent.location),
+            Text(myEvent.date.toLocal().toString()),
+            Text(myEvent.description),
+            myEvent.type == null || myEvent.type == "" ? Container() :
+            Text(myEvent.type!),
+            for(var skill in myEvent.SkillsNeeded!) Text(skill),
+          ],
+        ),
+      ),
+    );
   }
 }
