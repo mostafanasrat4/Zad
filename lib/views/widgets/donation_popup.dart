@@ -4,6 +4,7 @@ import 'package:zad/models/classes/beneficiary.dart';
 
 showDonationPopup(BuildContext context, Beneficiary ben) {
   String? selectedDonationType; // Variable to hold the selected dropdown value
+  TextEditingController amountController = TextEditingController();
 
   showDialog(
     context: context,
@@ -16,7 +17,7 @@ showDonationPopup(BuildContext context, Beneficiary ben) {
               mainAxisSize: MainAxisSize.min, // To make the dialog compact
               children: [
                 TextField(
-                  controller: BeneficiaryScreenController().amountController,
+                  controller: amountController,
                   decoration: InputDecoration(labelText: 'Amount'),
                 ),
                 DropdownButton<String>(
@@ -46,8 +47,9 @@ showDonationPopup(BuildContext context, Beneficiary ben) {
                 onPressed: () {
                   if (selectedDonationType != null) {
                     BeneficiaryScreenController().Donate(
-                      ben.id!,
+                      ben.id,
                       selectedDonationType!,
+                      amountController.text as int,
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

@@ -8,8 +8,7 @@ import 'package:zad/models/services/donation_manager.dart';
 import 'package:zad/models/services/local_user_data.dart';
 
 class BeneficiaryScreenController {
-  TextEditingController _amountController = TextEditingController();
-  get amountController => _amountController;
+
 
    isDonor() async{
     var user = await LocalUserData().loadUserData();
@@ -19,13 +18,13 @@ class BeneficiaryScreenController {
     return false;
   }
 
-  Future<void> Donate(String beneficiaryID, String paymentType) async{
+  Future<void> Donate(String beneficiaryID, String paymentType, int amount) async{
     var user = await LocalUserData().loadUserData();
     User myUser = User.fromMap(user as Map<String, dynamic>);
     if (user == null) return;
     if (myUser.type == 'donor'){
       String id = Uuid().v1();
-      Donation myDonation = Donation(id, beneficiaryID, myUser.id, _amountController.text as int);
+      Donation myDonation = Donation(id, beneficiaryID, myUser.id, amount);
       DonationDetails myDetails = DonationDetails(id, DateTime.now(), paymentType);
       DonationManager().createDonation(myDonation);
       DonationDetailsManager().createDonationDetails(myDetails);

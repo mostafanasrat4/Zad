@@ -12,6 +12,8 @@ class BeneficiaryDetailsScreen extends StatefulWidget {
 }
 
 class _BeneficiaryDetailsScreenState extends State<BeneficiaryDetailsScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
