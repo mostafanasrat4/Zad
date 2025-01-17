@@ -71,8 +71,8 @@ class VolunteerBadgeDecorator extends ProfileHeaderDecorator {
       children: [
         super.buildProfileHeader(),
         Positioned(
-          bottom: 0,
-          right: 0,
+          top: 0,
+          left: 0,
           child: AnimatedContainer(
             duration: Duration(seconds: 2),
             padding: EdgeInsets.symmetric(
