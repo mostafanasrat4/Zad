@@ -1,5 +1,3 @@
-//toDo: remove debug prints
-
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/donation.dart';
