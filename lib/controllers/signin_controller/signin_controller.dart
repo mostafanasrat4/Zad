@@ -47,8 +47,8 @@ class SignInController{
       // 4. Store user data in local storage
       _localUserData.clear();
       _localUserData.saveUserData(user.toMap());
-      await FCMDB().storeFCMToken();
-
+      // await FCMDB().storeFCMToken();
+      //
 
 
       // 4. Check user type and set dashboard strategy
@@ -57,23 +57,23 @@ class SignInController{
       switch(userType){
         case "admin":
           dashboardContext.setDashboardStrategy(AdminDashboardStrategy());
-          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          FCMDB().StoreSubscriber(myTopic);
+          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          // FCMDB().StoreSubscriber(myTopic);
           break;
         case "donor":
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
-          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          FCMDB().StoreSubscriber(myTopic);
+          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          // FCMDB().StoreSubscriber(myTopic);
           break;
         case "volunteer":
           dashboardContext.setDashboardStrategy(VolunteerDashboardStrategy());
-          topics myTopic = topics(collections_of_topics().newEvent, {user.id});
-          FCMDB().StoreSubscriber(myTopic);
+          // topics myTopic = topics(collections_of_topics().newEvent, {user.id});
+          // FCMDB().StoreSubscriber(myTopic);
           break;
         default:
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
-          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          FCMDB().StoreSubscriber(myTopic);
+          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          // FCMDB().StoreSubscriber(myTopic);
       }
 
       // 5. Invoke showDashboard() in DashboardContext
