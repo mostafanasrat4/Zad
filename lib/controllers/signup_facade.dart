@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 import 'package:zad/controllers/sign_up_with_email.dart';
+import 'package:zad/models/classes/admin.dart';
+import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/donor.dart';
+import 'package:zad/models/classes/volunteer.dart';
 import 'package:zad/models/interfaces/IUserManager.dart';
 import 'package:zad/models/services/adminManager.dart';
 import 'package:zad/models/services/beneficiaryManager.dart';
@@ -18,6 +21,7 @@ class SignUpController {
   final UserManager _userManager = UserManager();
   final LocalUserData _localUserData = LocalUserData();
   late IUserManager _manager;
+  late var selectedUserType;
 
   Future<void> signUpFacade(User myUser, String password, BuildContext context) async {
     try{
@@ -43,21 +47,29 @@ class SignUpController {
       String userType = myUser.type!;
       if(userType == 'admin') {
         _manager = AdminManager();
+        selectedUserType = Admin(id: myUser.id, name: myUser.fullName, email: myUser.email, number: myUser.phoneNo, imageURL: myUser.imageURL);
       }
       else if(userType == 'donor') {
         _manager = DonorManager();
+        selectedUserType = Donor(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL);
       }
       else if(userType == 'volunteer') {
         _manager = VolunteerManager();
+        selectedUserType = Volunteer(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL, registeredEvents: [], skills: [], availability: [], preferrences: []);
       }
       else if(userType == 'beneficiary') {
         _manager = BeneficiaryManager();
+        selectedUserType = Beneficiary(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL, donationNeeded: null, donationReceived: null);
       }
       else {
         _manager = DonorManager();
+        selectedUserType = Donor(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL);
       }
-      Donor myDonor = Donor(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL);
-      await _manager.createUser(myDonor);
+
+      await _manager.createUser(selectedUserType);
+
+
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Signed up successfully!')),
       );
