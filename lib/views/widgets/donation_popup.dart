@@ -18,6 +18,7 @@ showDonationPopup(BuildContext context, Beneficiary ben) {
               children: [
                 TextField(
                   controller: amountController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Amount'),
                 ),
                 DropdownButton<String>(
@@ -45,19 +46,19 @@ showDonationPopup(BuildContext context, Beneficiary ben) {
               ),
               TextButton(
                 onPressed: () {
-                  if (selectedDonationType != null) {
+                  final int? amount = int.tryParse(amountController.text);
+                  if (selectedDonationType != null && amount != null) {
                     BeneficiaryScreenController().Donate(
                       ben.id,
                       selectedDonationType!,
-                      amountController.text as int,
+                      amount,
                     );
+                    Navigator.of(context).pop();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Please select a donation type.')),
                     );
                   }
-
-                  Navigator.of(context).pop();
                 },
                 child: Text('Confirm Donation'),
               ),

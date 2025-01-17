@@ -38,15 +38,27 @@ class _BeneficiaryDetailsScreenState extends State<BeneficiaryDetailsScreen> {
               "Phone Number: ${widget.ben.phoneNo!}",
               style: const TextStyle(fontSize: 20),
             ),
-            const SizedBox(height: 10),
-          LinearProgressIndicator(
-            value: (widget.ben.donationNeeded! / widget.ben.donationReceived!),
-          ),
-             BeneficiaryScreenController().isDonor()?
-                ElevatedButton(onPressed: (){
+            const SizedBox(height: 20),
+            FutureBuilder<bool>(
+                future: BeneficiaryScreenController().isDonor(),
+                builder: (context, snapshot) {
 
-                  showDonationPopup(context, widget.ben);
-                }, child: const Text("Donate")):const Text("You Can't donate unless you are a Donor"),
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return const Text("Error checking donor status.");
+                  } else if (snapshot.data == true) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        showDonationPopup(context, widget.ben);
+                      },
+                      child: const Text("Donate"),
+                    );
+                  } else {
+                    return const Text("You cannot donate unless you are a donor.");
+                  }
+                },
+            ),
           ],
         ),
       ),

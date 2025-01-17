@@ -10,24 +10,35 @@ import 'package:zad/models/services/local_user_data.dart';
 class BeneficiaryScreenController {
 
 
-   isDonor() async{
-    var user = await LocalUserData().loadUserData();
-    User myUser = User.fromMap(user as Map<String, dynamic>);
-    if (user == null) return false;
-    if (myUser.type == 'donor') return true;
-    return false;
+  Future<bool> isDonor() async {
+    try {
+      var user = await LocalUserData().loadUserData();
+      if (user == null) {
+        print("No user found."); // Debugging
+        return false;
+      }
+
+      print("User type: ${user.type}"); // Debugging
+      return user.type == 'donor';
+    } catch (e) {
+      print("Error in isDonor: $e");
+      return false;
+    }
   }
+
 
   Future<void> Donate(String beneficiaryID, String paymentType, int amount) async{
     var user = await LocalUserData().loadUserData();
-    User myUser = User.fromMap(user as Map<String, dynamic>);
     if (user == null) return;
+    User myUser = User.fromMap(user as Map<String, dynamic>);
+
     if (myUser.type == 'donor'){
       String id = Uuid().v1();
       Donation myDonation = Donation(id, beneficiaryID, myUser.id, amount);
       DonationDetails myDetails = DonationDetails(id, DateTime.now(), paymentType);
-      DonationManager().createDonation(myDonation);
-      DonationDetailsManager().createDonationDetails(myDetails);
+      await DonationManager().createDonation(myDonation);
+      await DonationDetailsManager().createDonationDetails(myDetails);
+      print("donation added");
     }
   }
 }
