@@ -18,7 +18,6 @@ class DocumentProxy implements IDocument{
       }
     }
 
-
   }
   bool _hasPermission(User user) {
     // Only "admin" users can view the document
