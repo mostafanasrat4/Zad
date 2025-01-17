@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:zad/controllers/donor_dashboard_controller.dart';
 import 'package:zad/controllers/providers/theme_controller.dart';
+import 'package:zad/models/classes/donation.dart';
 
 
 class MyDonationsScreen extends StatefulWidget {
@@ -12,7 +14,25 @@ class MyDonationsScreen extends StatefulWidget {
 }
 
 class _MyDonationsScreenState extends State<MyDonationsScreen> {
+  bool isLoading = true;
+  List<Donation> DonationsList = [];
 
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    setState(() {
+      isLoading = true;
+    });
+    final donations = await DonorDashboardController().getDonations();
+    setState(() {
+      DonationsList = donations;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +57,22 @@ class _MyDonationsScreenState extends State<MyDonationsScreen> {
           )
         ],
       ),
-      // TODO: Add list of user past donations
       body: Center(
-        child: Text("My Donations"),
+        child: isLoading ?
+        const Center(child: CircularProgressIndicator())
+        : ListView.builder(
+          itemCount: DonationsList.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                //ToDo Navigate to Donations details or a popUP
+              },
+              child: ListTile(
+                title: Text("Donation amount ${DonationsList[index].amount}"),
+              ),
+            );
+          },
+        ),
       )
 
     );

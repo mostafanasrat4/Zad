@@ -24,7 +24,6 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
     super.initState();
     loadData();
   }
-
   Future<void> loadData() async {
     setState(() {
       isLoading = true;
