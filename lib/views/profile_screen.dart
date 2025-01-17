@@ -65,11 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // TODO: Profile Header Card (To be wrapped with proper decorators)
-            // ConcreteProfileHeader(
-            //   fullName: _currentUser?.fullName ?? "John Doe",
-            //   imageUrl: _currentUser?.imageURL ?? "",
-            // ).buildProfileHeader(),
             _profileHeader.buildProfileHeader(),
             const SizedBox(height: 16.0),
 
