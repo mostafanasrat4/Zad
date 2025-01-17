@@ -10,16 +10,16 @@ import 'package:zad/models/services/firebase_services.dart';
 class BeneficiaryManager implements IUserManager{
   final FirestoreService _firestoreService = FirestoreService();
 
-  Future<void> approveBeneficiary(String id)async {
+  Future<void> approveBeneficiary(String id, String state) async{
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', id);
-      await _firestoreService.updateSingelAtt(collections().beneficiary, docID!, 'status', 'approved');
+      Beneficiary ben;
+      await _firestoreService.updateSingelAtt(collections().beneficiary, docID!, 'status', state);
     }
     catch(e){
       debugPrint(e.toString());
     }
   }
-
   @override
   Future<void> createUser(myBeneficiary) async{
     if(myBeneficiary is !Beneficiary) {
@@ -33,10 +33,11 @@ class BeneficiaryManager implements IUserManager{
     }
   }
 
-  Future<void> disapproveBeneficiary(String id) async{
+  Future<void> disapproveBeneficiary(String id, String state) async{
     try{
       var docID = await _firestoreService.getDocID(collections().beneficiary, 'id', id);
-      await _firestoreService.updateSingelAtt(collections().beneficiary, docID!, 'status', 'disapproved');
+      Beneficiary ben;
+      await _firestoreService.updateSingelAtt(collections().beneficiary, docID!, 'status', state);
     }
     catch(e){
       debugPrint(e.toString());

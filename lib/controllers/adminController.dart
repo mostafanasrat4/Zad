@@ -1,4 +1,7 @@
+import 'package:uuid/uuid.dart';
+import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/event.dart';
+import 'package:zad/models/services/FCM_services.dart';
 import 'package:zad/models/services/beneficiaryManager.dart';
 import 'package:zad/models/services/event_manager.dart';
 
@@ -19,7 +22,7 @@ class AdminController {
     try {
       await _eventManager.addEventWithFactory(
         type,
-        id,
+        id = Uuid().v1(),
         name,
         location,
         date,
@@ -47,5 +50,13 @@ class AdminController {
   }
   Future<void> getPendingBeneificaries()async{
     await BeneficiaryManager().getPendingBeneficiaries();
+  }
+  Future<void> approveBeneficiary(Beneficiary ben) async{
+    await BeneficiaryManager().approveBeneficiary(ben.id, ben.approvalContext.approvedState.toString());
+    FcmServices().sendFCMMessage('Congratulations', 'You just got approved', ben.id);
+  }
+  Future<void> disapproveBeneficiary(Beneficiary ben) async{
+    FcmServices().sendFCMMessage('I am sorry', 'You just got disapproved, check your documents', ben.id);
+    await BeneficiaryManager().disapproveBeneficiary(ben.id, ben.approvalContext.rejectedState.toString());
   }
 }
