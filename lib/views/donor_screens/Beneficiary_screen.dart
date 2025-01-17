@@ -37,7 +37,6 @@ class BeneficiaryDetailsScreen extends StatelessWidget {
           ),
              BeneficiaryScreenController().isDonor() as bool?
                 ElevatedButton(onPressed: (){
-                  BeneficiaryScreenController().Donate(ben.id, paymentType);
                   showDonationPopup(context, ben);
                 }, child: const Text("Donate")):const Text("You Can't donate unless you are a Donor"),
           ],
