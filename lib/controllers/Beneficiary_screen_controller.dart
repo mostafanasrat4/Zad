@@ -11,7 +11,7 @@ import 'package:zad/models/services/local_user_data.dart';
 class BeneficiaryScreenController {
   TextEditingController _amountController = TextEditingController();
   get amountController => _amountController;
-   isDonor() async{
+   Future<bool> isDonor() async{
     var user = await LocalUserData().loadUserData();
     User myUser = User.fromMap(user as Map<String, dynamic>);
     if (user == null) return false;

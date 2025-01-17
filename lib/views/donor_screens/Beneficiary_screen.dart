@@ -3,9 +3,9 @@ import 'package:zad/controllers/Beneficiary_screen_controller.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/views/widgets/donation_popup.dart';
 
-class BeneficiaryScreen extends StatelessWidget {
+class BeneficiaryDetailsScreen extends StatelessWidget {
   final Beneficiary ben;
-  BeneficiaryScreen({super.key, required this.ben});
+  BeneficiaryDetailsScreen({super.key, required this.ben});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,9 @@ class BeneficiaryScreen extends StatelessWidget {
           LinearProgressIndicator(
             value: (ben.donationNeeded! / ben.donationReceived!),
           ),
-            BeneficiaryScreenController().isDonor()?
+             BeneficiaryScreenController().isDonor() as bool?
                 ElevatedButton(onPressed: (){
+                  BeneficiaryScreenController().Donate(ben.id, paymentType);
                   showDonationPopup(context, ben);
                 }, child: const Text("Donate")):const Text("You Can't donate unless you are a Donor"),
           ],

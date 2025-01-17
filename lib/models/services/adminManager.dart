@@ -31,7 +31,7 @@ class AdminManager implements IUserManager {
       return;
     }
     try {
-      _firestoreService.addData(collections().admins, myUser.toMap());
+      await _firestoreService.addData(collections().admins, myUser.toMap());
       print('user created successfully');
     } catch (e) {
       print(e.toString());

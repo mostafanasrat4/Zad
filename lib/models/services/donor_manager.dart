@@ -26,7 +26,7 @@ class DonorManager implements IUserManager{
       return;
     }
     try {
-      _firestoreService.addData(collections().donors, myUser.toMap());
+      await _firestoreService.addData(collections().donors, myUser.toMap());
       print('donor created successfully');
     } catch (e) {
       print(e.toString());

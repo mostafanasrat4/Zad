@@ -24,7 +24,6 @@ class BeneficiaryManager implements IUserManager{
   Future<void> createUser(myBeneficiary) async{
     if(myBeneficiary is !Beneficiary) {
       throw ArgumentError('User must be of type Beneficiary');
-      return;
     }
     try{
       await _firestoreService.addData(collections().beneficiary, myBeneficiary.toMap());

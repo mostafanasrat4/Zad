@@ -79,7 +79,7 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
                         final beneficiary = iterator.next();
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeneficiaryScreen(ben: beneficiary)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BeneficiaryDetailsScreen(ben: beneficiary)));
                           },
                           child: BeneficiaryCard(
                             name: beneficiary!.fullName ?? "No Name",
