@@ -2,16 +2,21 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:zad/models/classes/collections.dart';
 import 'package:zad/models/classes/topics.dart';
+import 'package:zad/models/classes/user.dart';
 import 'package:zad/models/services/firebase_services.dart';
+import 'package:zad/models/services/local_user_data.dart';
 
 class FCMDB {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   final FirestoreService _firestoreService = FirestoreService();
 
-  Future<void> storeFCMToken(String userID) async {
+  Future<void> storeFCMToken() async {
     String? token = await messaging.getToken();
+    var user = LocalUserData().loadUserData();
+    User myUser = User.fromMap(user as Map<String, dynamic>);
+
     await _firestoreService
-        .addDataWithID(collections().FCM, userID, {"FCMToken": token});
+        .addDataWithID(collections().FCM, myUser.id, {"FCMToken": token});
   }
 
   Future<String?> LoadFCMToken(String userID) async {
@@ -22,7 +27,7 @@ class FCMDB {
   // 2 storing functions, one that stores all the topics in one collections, every topic has a set of user IDs, the other one stores every user ID in a topic collection
   Future<void> StoreSubscriber(topics myTopic) async {
     try {
-      await _firestoreService.updateData(
+      await _firestoreService.setWithMerge(
           collections().Subscribers, myTopic.topic, myTopic.toMap());
     } catch (e) {
       debugPrint(e.toString());

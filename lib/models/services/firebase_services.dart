@@ -224,5 +224,12 @@ Future<void> updateSingelAtt(String collection, String documentID, String att, S
       print("Error adding data: $e");
     }
   }
+  Future<void> setWithMerge(String collection, String documentID, Map<String, dynamic> data) async {
+    try {
+      await _db.collection(collection).doc(documentID).set(data, SetOptions(merge: true));
+    } catch (e) {
+      print("Error adding data: $e");
+    }
+  }
 
 }
