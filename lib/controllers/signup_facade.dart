@@ -21,7 +21,7 @@ class SignUpController {
   final UserManager _userManager = UserManager();
   final LocalUserData _localUserData = LocalUserData();
   late IUserManager _manager;
-  late var selectedUserType;
+  late User selectedUserType;
 
   Future<void> signUpFacade(User myUser, String password, BuildContext context) async {
     try{
@@ -35,7 +35,7 @@ class SignUpController {
         );
         return;
       }
-      myUser.id = firebaseAuthUser!.uid; // To keep ids of both Firebase Authentication and Firestore consistent
+      myUser.id = firebaseAuthUser.uid; // To keep ids of both Firebase Authentication and Firestore consistent
 
       // 3. Add user to Firestore User table
       await _userManager.createUser(myUser);
@@ -44,7 +44,7 @@ class SignUpController {
       _localUserData.saveUserData(myUser.toMap());
 
       // 5. Add user to Firestore table based on its type
-      String userType = myUser.type!;
+      String userType = myUser.type ?? '';
       if(userType == 'admin') {
         _manager = AdminManager();
         selectedUserType = Admin(id: myUser.id, name: myUser.fullName, email: myUser.email, number: myUser.phoneNo, imageURL: myUser.imageURL);
@@ -59,7 +59,7 @@ class SignUpController {
       }
       else if(userType == 'beneficiary') {
         _manager = BeneficiaryManager();
-        selectedUserType = Beneficiary(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL, donationNeeded: null, donationReceived: null);
+        selectedUserType = Beneficiary(id: myUser.id, fullName: myUser.fullName, email: myUser.email, phoneNo: myUser.phoneNo, imageURL: myUser.imageURL, donationNeeded: 0, donationReceived: 0);
       }
       else {
         _manager = DonorManager();
