@@ -2,6 +2,7 @@ import 'package:uuid/uuid.dart';
 import 'package:zad/models/classes/beneficiary.dart';
 import 'package:zad/models/classes/event.dart';
 import 'package:zad/models/services/FCM_services.dart';
+import 'package:zad/models/services/Observer_manager.dart';
 import 'package:zad/models/services/beneficiaryManager.dart';
 import 'package:zad/models/services/event_manager.dart';
 
@@ -30,6 +31,7 @@ class AdminController {
         description,
         skillsNeeded,
       );
+      ObserverManager().notify('new event', 'new event', 'check it out');
     } catch (e) {
       print("Error adding event: $e");
     }
