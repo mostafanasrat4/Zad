@@ -23,6 +23,7 @@ class User {
         type: map['type'] ?? '',
       );
 
+
   Map<String, dynamic> toMap() => {
         'id': id,
         'fullName': fullName,
@@ -31,6 +32,7 @@ class User {
         'imageURL': imageURL,
         'type': type,
       };
+
 
 }
 

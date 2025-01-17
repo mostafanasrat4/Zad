@@ -18,9 +18,9 @@ class DocumentManager implements IDocument {
   }
 
   @override
-  Future<void> editDocument(Document myDocument)async {
+  Future<void> editDocument(Document myDocument, String userID)async {
     try{
-      var docID = await _firestoreService.getDocID(collections().documents, 'id', myDocument.id);
+      var docID = await _firestoreService.getDocID(collections().documents, 'userID', myDocument.userID!);
       await _firestoreService.updateData(collections().documents, docID!, myDocument.toMap());
     }catch(e){}
   }
