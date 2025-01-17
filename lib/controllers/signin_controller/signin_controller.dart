@@ -5,7 +5,10 @@ import 'package:zad/controllers/signin_controller/dashboard_strategies/admin_das
 import 'package:zad/controllers/signin_controller/dashboard_strategies/donor_dashboard_strategy.dart';
 import 'package:zad/controllers/signin_controller/dashboard_strategies/volunteer_dashboard_strategy.dart';
 import 'package:zad/controllers/signin_with_email.dart';
+import 'package:zad/models/classes/collections_of_topics.dart';
+import 'package:zad/models/classes/topics.dart';
 import 'package:zad/models/classes/user.dart';
+import 'package:zad/models/services/FCM_DB.dart';
 import 'package:zad/models/services/user_manager.dart';
 import 'package:zad/views/donor_screens/donor_navigation_manager.dart';
 
@@ -44,6 +47,9 @@ class SignInController{
       // 4. Store user data in local storage
       _localUserData.clear();
       _localUserData.saveUserData(user.toMap());
+      await FCMDB().storeFCMToken();
+
+
 
       // 4. Check user type and set dashboard strategy
       String? userType = user.type;
@@ -51,15 +57,23 @@ class SignInController{
       switch(userType){
         case "admin":
           dashboardContext.setDashboardStrategy(AdminDashboardStrategy());
+          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          FCMDB().StoreSubscriber(myTopic);
           break;
         case "donor":
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
+          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          FCMDB().StoreSubscriber(myTopic);
           break;
         case "volunteer":
           dashboardContext.setDashboardStrategy(VolunteerDashboardStrategy());
+          topics myTopic = topics(collections_of_topics().newEvent, {user.id});
+          FCMDB().StoreSubscriber(myTopic);
           break;
         default:
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
+          topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
+          FCMDB().StoreSubscriber(myTopic);
       }
 
       // 5. Invoke showDashboard() in DashboardContext
