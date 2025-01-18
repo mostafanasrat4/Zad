@@ -56,7 +56,8 @@ class _DonorDashboardScreenState extends State<DonorDashboardScreen> {
             onPressed: () {
               context.read<theme>().changeTheme();
             },
-          )
+          ),
+          IconButton(onPressed: (){DonorDashboardController().subscribe();}, icon: const Icon(Icons.notifications))
         ],
       ),
       body: Padding(

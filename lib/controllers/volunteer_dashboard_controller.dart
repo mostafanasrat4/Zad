@@ -1,4 +1,8 @@
+import 'package:zad/models/classes/collections_of_topics.dart';
 import 'package:zad/models/classes/event.dart';
+import 'package:zad/models/classes/topics.dart';
+import 'package:zad/models/classes/user.dart';
+import 'package:zad/models/services/FCM_DB.dart';
 import 'package:zad/models/services/event_manager.dart';
 import 'package:zad/models/services/event_registeration_manager.dart';
 import 'package:zad/models/services/local_user_data.dart';
@@ -53,5 +57,13 @@ class VolunteerDashboardController {
 
   EventRegisterationManager getRegistrationManager() {
     return EventRegisterationManager();
+  }
+  Future<void> subscribeToEvent() async {
+    try{
+       var userr = await LocalUserData().loadUserData();
+       User user = User.fromMap(userr as Map<String, dynamic>);
+       topics myTopic =await topics(collections_of_topics().newEvent, {user.id});
+       await FCMDB().StoreSubscriber(myTopic);
+    }catch(e){}
   }
 }

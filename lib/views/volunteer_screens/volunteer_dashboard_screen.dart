@@ -118,6 +118,7 @@ class _VolunteerDashboardScreenState extends State<VolunteerDashboardScreen> {
             icon: const Icon(Icons.undo),
             onPressed: _undoLastAction,
           ),
+          IconButton(onPressed: (){VolunteerDashboardController().subscribeToEvent();}, icon:const Icon(Icons.notifications),),
           Row(
             children: [
               DropdownButton<String>(

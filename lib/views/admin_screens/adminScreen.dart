@@ -158,6 +158,10 @@ class _EventManagementScreenState extends State<AdminScreen> {
             icon: const Icon(Icons.add),
             onPressed: _addEvent,
           ),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: AdminController().subscribeToTopic,
+          ),
         ],
       ),
       body: _isLoading

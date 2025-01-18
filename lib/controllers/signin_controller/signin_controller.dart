@@ -57,23 +57,19 @@ class SignInController{
       switch(userType){
         case "admin":
           dashboardContext.setDashboardStrategy(AdminDashboardStrategy());
-          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          // FCMDB().StoreSubscriber(myTopic);
+
           break;
         case "donor":
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
-          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          // FCMDB().StoreSubscriber(myTopic);
+
           break;
         case "volunteer":
           dashboardContext.setDashboardStrategy(VolunteerDashboardStrategy());
-          // topics myTopic = topics(collections_of_topics().newEvent, {user.id});
-          // FCMDB().StoreSubscriber(myTopic);
+
           break;
         default:
           dashboardContext.setDashboardStrategy(DonorDashboardStrategy());
-          // topics myTopic = topics(collections_of_topics().newBeneficiary, {user.id});
-          // FCMDB().StoreSubscriber(myTopic);
+
       }
 
       // 5. Invoke showDashboard() in DashboardContext
